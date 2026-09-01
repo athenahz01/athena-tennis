@@ -1,0 +1,185 @@
+{
+  "protocol": "expanding annual walk-forward",
+  "folds": [
+    {
+      "year": 2024,
+      "tour": "ATP",
+      "selected_component": "stack",
+      "model": {
+        "n": 3008,
+        "log_loss": 0.6036237918505182,
+        "brier": 0.20929860454119906,
+        "accuracy": 0.6605718085106383,
+        "ece_10": 0.015932367514255242
+      },
+      "elo": {
+        "n": 3008,
+        "log_loss": 0.6158238719455944,
+        "brier": 0.2144101777341705,
+        "accuracy": 0.6512632978723404,
+        "ece_10": 0.028189913625439586
+      },
+      "paired_gate_vs_elo": {
+        "model_minus_baseline_log_loss": -0.012200080095076267,
+        "ci_95": [
+          -0.017905186551319903,
+          -0.006632667855148195
+        ],
+        "one_sided_p_model_not_better": 0.0,
+        "ship": true,
+        "clusters": 221,
+        "resamples": 10000
+      }
+    },
+    {
+      "year": 2024,
+      "tour": "WTA",
+      "selected_component": "stack",
+      "model": {
+        "n": 2580,
+        "log_loss": 0.6050408857557765,
+        "brier": 0.20993743202118278,
+        "accuracy": 0.6643410852713179,
+        "ece_10": 0.012367969652062273
+      },
+      "elo": {
+        "n": 2580,
+        "log_loss": 0.6193408276561984,
+        "brier": 0.21610291876265175,
+        "accuracy": 0.6465116279069767,
+        "ece_10": 0.033568724117776394
+      },
+      "paired_gate_vs_elo": {
+        "model_minus_baseline_log_loss": -0.014299941900421947,
+        "ci_95": [
+          -0.02099745967578949,
+          -0.007675875612300977
+        ],
+        "one_sided_p_model_not_better": 0.0,
+        "ship": true,
+        "clusters": 209,
+        "resamples": 10000
+      }
+    },
+    {
+      "year": 2025,
+      "tour": "ATP",
+      "selected_component": "stack",
+      "model": {
+        "n": 2307,
+        "log_loss": 0.6131501307718009,
+        "brier": 0.21314772858210557,
+        "accuracy": 0.6501950585175552,
+        "ece_10": 0.017993336580219663
+      },
+      "elo": {
+        "n": 2307,
+        "log_loss": 0.6250416883947849,
+        "brier": 0.2179191798398491,
+        "accuracy": 0.6410923276983095,
+        "ece_10": 0.03247467365252073
+      },
+      "paired_gate_vs_elo": {
+        "model_minus_baseline_log_loss": -0.011891557622984031,
+        "ci_95": [
+          -0.017792631925451614,
+          -0.005670567557921452
+        ],
+        "one_sided_p_model_not_better": 0.0002,
+        "ship": true,
+        "clusters": 170,
+        "resamples": 10000
+      }
+    },
+    {
+      "year": 2025,
+      "tour": "WTA",
+      "selected_component": "stack",
+      "model": {
+        "n": 2486,
+        "log_loss": 0.610522081727121,
+        "brier": 0.21167522502972935,
+        "accuracy": 0.6572807723250201,
+        "ece_10": 0.018584835637705837
+      },
+      "elo": {
+        "n": 2486,
+        "log_loss": 0.6201498914553359,
+        "brier": 0.21552649384188122,
+        "accuracy": 0.6528559935639582,
+        "ece_10": 0.03234955007148656
+      },
+      "paired_gate_vs_elo": {
+        "model_minus_baseline_log_loss": -0.009627809728214882,
+        "ci_95": [
+          -0.016666684949401385,
+          -0.0028910524419303086
+        ],
+        "one_sided_p_model_not_better": 0.0023,
+        "ship": true,
+        "clusters": 212,
+        "resamples": 10000
+      }
+    },
+    {
+      "year": 2026,
+      "tour": "ATP",
+      "selected_component": "stack",
+      "model": {
+        "n": 2053,
+        "log_loss": 0.6099089366187546,
+        "brier": 0.21153492775580607,
+        "accuracy": 0.6643935703848027,
+        "ece_10": 0.011372797311213486
+      },
+      "elo": {
+        "n": 2053,
+        "log_loss": 0.635490923398903,
+        "brier": 0.2214995309245009,
+        "accuracy": 0.6473453482708232,
+        "ece_10": 0.042025305878003724
+      },
+      "paired_gate_vs_elo": {
+        "model_minus_baseline_log_loss": -0.02558198678014847,
+        "ci_95": [
+          -0.03382509630690953,
+          -0.01711623323435358
+        ],
+        "one_sided_p_model_not_better": 0.0,
+        "ship": true,
+        "clusters": 205,
+        "resamples": 10000
+      }
+    },
+    {
+      "year": 2026,
+      "tour": "WTA",
+      "selected_component": "stack",
+      "model": {
+        "n": 1894,
+        "log_loss": 0.6606431734343632,
+        "brier": 0.21337607994658697,
+        "accuracy": 0.6589229144667371,
+        "ece_10": 0.03700461437481675
+      },
+      "elo": {
+        "n": 1894,
+        "log_loss": 0.6410224047442878,
+        "brier": 0.22499578140559923,
+        "accuracy": 0.6372756071805702,
+        "ece_10": 0.06306062928839092
+      },
+      "paired_gate_vs_elo": {
+        "model_minus_baseline_log_loss": 0.0196207686900754,
+        "ci_95": [
+          -0.020941240645109906,
+          0.07137098315690088
+        ],
+        "one_sided_p_model_not_better": 0.788,
+        "ship": false,
+        "clusters": 155,
+        "resamples": 10000
+      }
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "model_version": "uso-hybrid-v1",
+  "trained_at": "2026-09-01T15:24:27.353363+00:00",
+  "cutoff": "2026-08-30",
+  "data_rows": 77119,
+  "features": [
+    "elo_diff",
+    "surface_elo_diff",
+    "rank_log_diff",
+    "serve_diff",
+    "return_diff",
+    "matchup_serve_diff",
+    "elo_logit",
+    "point_logit",
+    "age_diff",
+    "height_diff",
+    "rest_diff",
+    "matches_14d_diff",
+    "minutes_14d_diff",
+    "last_minutes_diff",
+    "recent_win_diff",
+    "surface_win_diff",
+    "h2h_shrunk",
+    "lefty_diff",
+    "grand_slam",
+    "best_of_five",
+    "round_progress",
+    "low_data_diff"
+  ],
+  "tour_validation": {
+    "ATP": {
+      "n_train": 31803,
+      "n_calibration": 7951,
+      "start_date": "2023-09-14",
+      "end_date": "2026-08-30",
+      "candidates": {
+        "elo": {
+          "log_loss": 0.6249046693392765,
+          "brier": 0.2177776188831169,
+          "accuracy": 0.6462080241479059
+        },
+        "point": {
+          "log_loss": 0.6618823710138905,
+          "brier": 0.2314188413536643,
+          "accuracy": 0.6118727204125267
+        },
+        "ml": {
+          "log_loss": 0.6103261996993273,
+          "brier": 0.2119933495929109,
+          "accuracy": 0.6596654508866809
+        },
+        "stack": {
+          "log_loss": 0.6093822876787248,
+          "brier": 0.21156452812910953,
+          "accuracy": 0.6579046660797384
+        }
+      },
+      "selected": "stack"
+    },
+    "WTA": {
+      "n_train": 29892,
+      "n_calibration": 7473,
+      "start_date": "2023-09-11",
+      "end_date": "2026-08-30",
+      "candidates": {
+        "elo": {
+          "log_loss": 0.6256779686133325,
+          "brier": 0.21833825933897863,
+          "accuracy": 0.6464605914625987
+        },
+        "point": {
+          "log_loss": 0.6533166168443838,
+          "brier": 0.22858777925607013,
+          "accuracy": 0.630268968285829
+        },
+        "ml": {
+          "log_loss": 0.6320526298908881,
+          "brier": 0.21117626055638167,
+          "accuracy": 0.6606449886257193
+        },
+        "stack": {
+          "log_loss": 0.6179279688188897,
+          "brier": 0.2133582677795782,
+          "accuracy": 0.6582363174093403
+        }
+      },
+      "selected": "stack"
+    }
+  }
+}

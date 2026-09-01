@@ -1,0 +1,17 @@
+.venv/
+web/node_modules/
+web/.next/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+*.joblib
+data/raw/*.csv
+data/snapshots/*.json
+data/processed/*.csv
+artifacts/*
+!artifacts/.gitkeep
+!artifacts/uso_hybrid_v1.json
+outputs/*
+!outputs/.gitkeep
+!outputs/backtest_2026_components.json
+!outputs/walk_forward_backtest.json
