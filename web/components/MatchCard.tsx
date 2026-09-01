@@ -4,10 +4,10 @@ import { useState } from "react";
 import type { Forecast, PlayerStats, Range } from "@/lib/types";
 
 const pct = (value?: number | null, digits = 0) =>
-  value == null ? "—" : `${(value * 100).toFixed(digits)}%`;
+  value == null ? "Not set" : `${(value * 100).toFixed(digits)}%`;
 
 const number = (value?: number | null, digits = 1) =>
-  value == null ? "—" : value.toFixed(digits);
+  value == null ? "Not set" : value.toFixed(digits);
 
 function ProbabilityCourt({ model, market }: { model: number; market?: number | null }) {
   return (
@@ -63,9 +63,9 @@ function readableFlag(flag: string) {
     ok: "Full history",
     large_model_disagreement: "Models disagree",
     low_match_history: "Limited match history",
-    low_surface_history: "Limited hard-court history",
+    low_surface_history: "Limited history on hard courts",
     missing_rank: "Rank unavailable",
-    "2026_wta_stack_failed_gate_using_elo_fallback": "WTA · Elo safety fallback",
+    "2026_wta_stack_failed_gate_using_elo_fallback": "WTA · Elo fallback",
   };
   return labels[flag] ?? flag.replaceAll("_", " ");
 }
@@ -121,10 +121,10 @@ export default function MatchCard({ forecast, index }: { forecast: Forecast; ind
         </div>
 
         <div className="quick-stats">
-          <div><span>Likely sets</span><strong>{likelySet?.[0] ?? "—"}</strong><small>{pct(likelySet?.[1])}</small></div>
-          <div><span>Total games</span><strong>{number(forecast.simulation.total_games.mean)}</strong><small>{forecast.simulation.total_games.p10}–{forecast.simulation.total_games.p90}</small></div>
+          <div><span>Likely sets</span><strong>{likelySet?.[0] ?? "Not set"}</strong><small>{pct(likelySet?.[1])}</small></div>
+          <div><span>Total games</span><strong>{number(forecast.simulation.total_games.mean)}</strong><small>{forecast.simulation.total_games.p10} to {forecast.simulation.total_games.p90}</small></div>
           <div><span>Tiebreak</span><strong>{pct(forecast.simulation.p_tiebreak)}</strong><small>{number(forecast.simulation.expected_tiebreaks, 2)} expected</small></div>
-          <div><span>Duration</span><strong>{Math.round(forecast.simulation.duration_minutes.p50)}m</strong><small>{Math.round(forecast.simulation.duration_minutes.p10)}–{Math.round(forecast.simulation.duration_minutes.p90)}m</small></div>
+          <div><span>Duration</span><strong>{Math.round(forecast.simulation.duration_minutes.p50)}m</strong><small>{Math.round(forecast.simulation.duration_minutes.p10)} to {Math.round(forecast.simulation.duration_minutes.p90)}m</small></div>
         </div>
 
         <div className="quality-row">
@@ -132,7 +132,7 @@ export default function MatchCard({ forecast, index }: { forecast: Forecast; ind
         </div>
 
         <button className="detail-toggle" type="button" aria-expanded={open} onClick={() => setOpen(!open)}>
-          {open ? "Close match book" : "Open match book"}<span aria-hidden="true">{open ? "−" : "+"}</span>
+          {open ? "Close match book" : "Open match book"}<span aria-hidden="true">{open ? "×" : "+"}</span>
         </button>
       </div>
 
@@ -146,7 +146,7 @@ export default function MatchCard({ forecast, index }: { forecast: Forecast; ind
             {forecast.simulation.top_exact_scores.slice(0, 5).map((row) => <p key={row.score}><strong>{row.score}</strong><span>{pct(row.probability, 1)}</span></p>)}</div>
             <div><p className="eyebrow">total games</p>{totalsKeys.map((key) => <p key={key}><strong>{key.replace("over_", "Over ")}</strong><span>{pct(forecast.simulation.total_games_probabilities[key])}</span></p>)}</div>
           </section>
-          <p className="snapshot-note">{forecast.kalshi?.observed_at ? `Market captured ${new Date(forecast.kalshi.observed_at).toLocaleString()}. ` : "No matching Kalshi pair. "}Simulation: {forecast.simulation.n_sims.toLocaleString()} matches · data through {forecast.training_cutoff}.</p>
+          <p className="snapshot-note">{forecast.kalshi?.observed_at ? `Market captured ${new Date(forecast.kalshi.observed_at).toLocaleString()}. ` : "No matching Kalshi pair. "}Simulation used {forecast.simulation.n_sims.toLocaleString()} matches. Data through {forecast.training_cutoff}.</p>
         </div>
       )}
     </article>

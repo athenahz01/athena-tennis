@@ -1,12 +1,17 @@
 from __future__ import annotations
 
 import argparse
+import datetime as dt
 import json
+import os
 import re
+import time
+from dataclasses import asdict
 from pathlib import Path
 from typing import Any
 
 import pandas as pd
+import requests
 
 from . import config
 from .data import fetch_history, load_history
@@ -16,6 +21,14 @@ from .ledger import log_forecast, log_market
 from .model import TennisPredictor
 from .pipeline import predict_full
 from .schema import MatchContext
+from .trading import (
+    TradingConfig,
+    enter_selected_positions,
+    evaluate_match,
+    load_state,
+    save_state,
+    settle_finalized_positions,
+)
 
 
 def _slug(text: str) -> str:
@@ -191,6 +204,117 @@ def command_backtest(args: argparse.Namespace) -> None:
     print(f"Saved: {path}")
 
 
+def _push_agent_state(state: dict[str, Any]) -> None:
+    url = os.environ.get("AGENT_STATE_URL", "").strip()
+    key = os.environ.get("AGENT_STATE_KEY", "").strip()
+    if not url or not key:
+        return
+    response = requests.post(
+        url,
+        json=state,
+        headers={"X-Agent-Key": key},
+        timeout=10,
+    )
+    response.raise_for_status()
+
+
+def command_agent(args: argparse.Namespace) -> None:
+    slate_path = Path(args.slate)
+    forecasts = json.loads(slate_path.read_text(encoding="utf-8"))
+    if not isinstance(forecasts, list):
+        raise ValueError("Agent slate must be a JSON array")
+    rules = TradingConfig()
+    state_path = Path(args.state)
+    web_path = Path(args.web_output) if args.web_output else None
+    journal = Path(args.journal) if args.journal else (
+        config.DATA / "paper" / f"tennis-paper-{dt.date.today():%Y%m%d}.jsonl"
+    )
+    state = load_state(state_path, rules)
+    stream_warned = False
+
+    def cycle() -> None:
+        nonlocal stream_warned
+        if not args.cached:
+            settle_finalized_positions(state, journal)
+        markets_by_tour: dict[str, list[dict[str, Any]]] = {}
+        if not args.cached:
+            for tour in sorted({str(row["context"]["tour"]).upper() for row in forecasts}):
+                try:
+                    _, markets_by_tour[tour] = snapshot_winner_markets(tour)
+                except requests.RequestException as exc:
+                    print(f"[paper] {tour} market refresh failed: {type(exc).__name__}")
+                    markets_by_tour[tour] = []
+
+        open_events = {
+            row["event_ticker"] for row in state.get("positions", []) if row["status"] == "open"
+        }
+        planned_cost = int(state["session"].get("open_cost_cents", 0))
+        evaluations: list[dict[str, Any]] = []
+        for forecast in forecasts:
+            tour = str(forecast["context"]["tour"]).upper()
+            if args.cached:
+                market = forecast.get("kalshi") if (forecast.get("kalshi") or {}).get("player1") else None
+            else:
+                market = compare_match(
+                    forecast["player1"]["name"],
+                    forecast["player2"]["name"],
+                    markets_by_tour.get(tour, []),
+                    model_p1=float(forecast["probabilities"]["final"]),
+                )
+            event_ticker = (market or {}).get("event_ticker")
+            evaluation = evaluate_match(
+                forecast,
+                market,
+                bankroll_cents=int(state["session"]["starting_bankroll_cents"]),
+                session_cost_cents=planned_cost,
+                existing_event=event_ticker in open_events,
+                rules=rules,
+            )
+            evaluations.append(evaluation)
+            if evaluation.get("selected") and not args.observe_only:
+                planned_cost += int(evaluation["selected"]["cost_cents"])
+
+        if not args.observe_only:
+            enter_selected_positions(state, evaluations, journal)
+        positions_by_event = {
+            row["event_ticker"]: row
+            for row in state.get("positions", [])
+            if row["status"] == "open"
+        }
+        for evaluation in evaluations:
+            position = positions_by_event.get(evaluation.get("event_ticker"))
+            if position:
+                evaluation["state"] = "position"
+                evaluation["reason"] = "paper position open"
+                evaluation["position"] = position
+        state["matches"] = evaluations
+        state["mode"] = "paper observation" if args.observe_only else "paper"
+        state["rules"] = asdict(rules)
+        save_state(state, state_path, web_path)
+        try:
+            _push_agent_state(state)
+        except requests.RequestException as exc:
+            if not stream_warned:
+                stream_warned = True
+                print(f"[paper] website state push failed: {type(exc).__name__}")
+        entries = sum(1 for row in evaluations if row["state"] == "entry")
+        open_count = len(positions_by_event)
+        print(
+            f"[paper] {state['ts']} watched={len(evaluations)} "
+            f"entries={entries} open={open_count} state={state_path}"
+        )
+
+    try:
+        while True:
+            cycle()
+            if not args.watch:
+                break
+            time.sleep(args.poll_seconds)
+    except KeyboardInterrupt:
+        save_state(state, state_path, web_path)
+        print("[paper] stopped; state and journal saved")
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="us-open", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -251,6 +375,17 @@ def build_parser() -> argparse.ArgumentParser:
     backtest.add_argument("--resamples", type=int, default=10_000)
     backtest.add_argument("--output")
     backtest.set_defaults(func=command_backtest)
+
+    agent = sub.add_parser("agent", help="run the pre-match Kalshi paper trading agent")
+    agent.add_argument("--slate", default=str(config.OUTPUTS / "us_open_2026_latest_slate.json"))
+    agent.add_argument("--state", default=str(config.OUTPUTS / "tennis_agent_state.json"))
+    agent.add_argument("--web-output", default=str(config.ROOT / "web/public/data/agent.json"))
+    agent.add_argument("--journal")
+    agent.add_argument("--watch", action="store_true", help="poll until stopped")
+    agent.add_argument("--poll-seconds", type=float, default=30.0)
+    agent.add_argument("--cached", action="store_true", help="use quotes already stored in the slate")
+    agent.add_argument("--observe-only", action="store_true", help="evaluate without opening paper positions")
+    agent.set_defaults(func=command_agent)
     return parser
 
 

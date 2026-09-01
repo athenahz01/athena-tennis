@@ -9,6 +9,7 @@ __pycache__/
 data/raw/*.csv
 data/snapshots/*.json
 data/processed/*.csv
+data/paper/*.jsonl
 artifacts/*
 !artifacts/.gitkeep
 !artifacts/uso_hybrid_v1.json

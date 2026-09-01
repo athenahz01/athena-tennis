@@ -59,6 +59,12 @@ us-open slate --fixtures data/fixtures/us_open_2026_2026-09-01.csv --kalshi
 # One-command full slate + Kalshi + website data refresh (20,000 simulations/game).
 .\scripts\predict_all.ps1
 
+# Start the pre-match paper trading agent. Stop it with Ctrl+C.
+.\scripts\run_trading_agent.ps1
+
+# Run one market scan and exit.
+.\scripts\run_trading_agent.ps1 -Once
+
 # Honest chronological judge (trains before each test season).
 us-open backtest --years 2024 2025 2026
 ```
@@ -99,7 +105,8 @@ before first ball.
 The default downloader uses TennisMyLife's public ATP/WTA CSV mirror, which is based partly
 on Jeff Sackmann/Tennis Abstract data. Those sources restrict commercial use and require
 attribution. Review the provider's current terms before publishing or monetizing the model.
-Kalshi market reads use public, unauthenticated endpoints; trading is intentionally absent.
+Kalshi market reads use public, unauthenticated endpoints. The trading agent is paper only.
+It does not contain authenticated order placement.
 
 See [RESEARCH.md](RESEARCH.md) for the evidence review and [MODEL_CARD.md](MODEL_CARD.md)
 for evaluation, leakage, uncertainty and deployment requirements.
@@ -117,6 +124,24 @@ npm.cmd run dev
 Then open `http://localhost:3000`. The site includes ATP/WTA filters, player search,
 model-versus-Kalshi probability courts, score and totals distributions, detailed player
 statistics, and model-quality warnings.
+
+## Paper trading agent
+
+The agent uses the frozen pre-match probability and polls current Kalshi match-winner
+books. It buys at the displayed ask on paper, estimates the taker fee, logs every fill,
+and settles open positions from Kalshi's final market result. It will not average down
+or open both player contracts in the same match.
+
+The default controls are a $10 maximum cost per match, $100 across the session, 20
+contracts per position, a four-cent maximum spread, and quarter-Kelly sizing under the
+hard dollar caps. ATP entries need six cents of edge after the entry fee. WTA entries
+need eight cents because WTA currently uses the Elo fallback. Low-history, low-surface,
+missing-rank, and large model-disagreement flags block entries.
+
+The runner writes its append-only journal to `data\paper`, full state to `outputs`, and
+the local website view to `web\public\data\agent.json`. Set `AGENT_STATE_URL` and
+`AGENT_STATE_KEY` to stream the same state to the deployed `/agent` page. The website
+endpoint uses the same Upstash or Vercel KV environment variables as the soccer agent.
 
 ### Vercel
 

@@ -64,7 +64,7 @@ export default function PredictionBoard({ forecasts }: { forecasts: Forecast[] }
       ) : (
         <div className="empty-state">
           <strong>No matches on this court.</strong>
-          <span>Clear the search or turn off the market-gap filter.</span>
+          <span>Clear the search or turn off the market gap filter.</span>
         </div>
       )}
     </section>

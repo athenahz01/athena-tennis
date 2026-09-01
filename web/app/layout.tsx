@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,20 +14,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="light-field" aria-hidden="true" />
         <header className="topbar">
           <div className="nav-shell">
-            <a className="brand" href="#top" aria-label="Athena Tennis home">
+            <Link className="brand" href="/" aria-label="Athena Tennis home">
               <span className="brand-ball">A</span>
               <span>Athena <strong>Tennis</strong></span>
-            </a>
+            </Link>
             <nav aria-label="Primary navigation">
-              <a href="#matches">Matches</a>
-              <a href="#method">Method</a>
-              <a href="https://athena-soccer.vercel.app/">Soccer ↗</a>
+              <Link href="/#matches">Matches</Link>
+              <Link href="/agent">Agent</Link>
+              <Link href="/#method">Method</Link>
+              <a href="https://athena-soccer.vercel.app/">Soccer</a>
             </nav>
           </div>
         </header>
         {children}
         <footer>
-          Model probabilities, not betting advice. Markets are timestamped snapshots. Athena 2026.
+          Model probabilities are research outputs. The agent trades on paper. Athena 2026.
         </footer>
       </body>
     </html>

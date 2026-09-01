@@ -25,17 +25,17 @@ export default function Home() {
     <main id="top">
       <section className="hero">
         <div className="hero-copy">
-          <p className="eyebrow">model vs market · every point simulated</p>
+          <p className="eyebrow">model probability · Kalshi price</p>
           <h1>
             Every Match.
             <br />
-            <span>Before First Ball.</span>
+            <span>Before First Pitch.</span>
           </h1>
           <p className="hero-lede">
-            Winner probabilities and the shape of the match—sets, games, tiebreaks,
-            serve stats, and time on court—for every 2026 US Open singles matchup.
+            Win probabilities, set scores, totals, serve stats, and match length for
+            every 2026 US Open singles matchup.
           </p>
-          <a className="primary-button" href="#matches">Read today&apos;s court</a>
+          <a className="primary-button" href="#matches">See today&apos;s matches</a>
         </div>
         <TennisCourt />
       </section>
@@ -45,7 +45,7 @@ export default function Home() {
         <div><span>Tours</span><strong>ATP · WTA</strong><small>singles</small></div>
         <div><span>Simulated</span><strong>{simulations.toLocaleString()}</strong><small>matches</small></div>
         <div><span>Market</span><strong>{marketCount}/{forecasts.length}</strong><small>Kalshi pairs</small></div>
-        <div><span>Data through</span><strong>{first?.training_cutoff ?? "—"}</strong><small>{first?.model_version}</small></div>
+        <div><span>Data through</span><strong>{first?.training_cutoff ?? "Not set"}</strong><small>{first?.model_version}</small></div>
       </section>
 
       <PredictionBoard forecasts={forecasts} />
@@ -53,16 +53,15 @@ export default function Home() {
       <section className="method" id="method">
         <p className="eyebrow">how to read the board</p>
         <div className="method-grid">
-          <h2>The court is the probability.</h2>
+          <h2>Athena and Kalshi on the same scale.</h2>
           <div>
             <p>
-              The chartreuse ball is Athena&apos;s win probability. The white marker is the
-              de-vigged Kalshi midpoint captured after the model forecast. Distance between
-              them is disagreement—not an automatic bet.
+              The green ball shows Athena&apos;s win probability. The white line shows the
+              Kalshi midpoint captured after the forecast. A gap only means the two disagree.
             </p>
             <p>
-              ATP uses the calibrated stack. The 2026 WTA challenger failed its frozen
-              log-loss promotion gate, so WTA safely falls back to Elo and says so on every card.
+              ATP runs the calibrated stack. WTA runs Elo because the newer model missed
+              its log loss test. Every WTA card labels that fallback.
             </p>
           </div>
         </div>
