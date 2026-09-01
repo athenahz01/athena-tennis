@@ -120,6 +120,7 @@ statistics, and model-quality warnings.
 
 ### Vercel
 
-The repository-level `vercel.json` deploys the nested `web` application even when the
-Vercel project points at the repository root. Alternatively, set **Settings → Build and
-Deployment → Root Directory** to `web`; Vercel will then use the web package directly.
+The repository is an npm workspace, so Vercel detects Next.js and builds the nested `web`
+application when the project points at the repository root. Alternatively, set **Settings
+→ Build and Deployment → Root Directory** to `web`; Vercel will then use the web package
+directly.

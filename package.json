@@ -1,0 +1,20 @@
+{
+  "name": "athena-tennis",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "web"
+  ],
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev": "npm --workspace athena-tennis-web run dev",
+    "build": "npm --workspace athena-tennis-web run build"
+  },
+  "dependencies": {
+    "next": "16.3.4",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}
