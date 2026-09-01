@@ -117,3 +117,9 @@ npm.cmd run dev
 Then open `http://localhost:3000`. The site includes ATP/WTA filters, player search,
 model-versus-Kalshi probability courts, score and totals distributions, detailed player
 statistics, and model-quality warnings.
+
+### Vercel
+
+The repository-level `vercel.json` deploys the nested `web` application even when the
+Vercel project points at the repository root. Alternatively, set **Settings → Build and
+Deployment → Root Directory** to `web`; Vercel will then use the web package directly.
