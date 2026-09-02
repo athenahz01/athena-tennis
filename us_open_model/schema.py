@@ -42,6 +42,8 @@ class MatchContext:
     tournament: str = "US Open"
     round: str = "R128"
     match_date: str = "2026-09-01"
+    scheduled_start: str | None = None
+    match_status: str | None = None
     court: str | None = None
     indoor: bool = False
     temperature_c: float | None = None

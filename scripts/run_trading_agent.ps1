@@ -2,7 +2,9 @@ param(
     [int]$PollSeconds = 30,
     [switch]$Once,
     [switch]$Cached,
-    [switch]$ObserveOnly
+    [switch]$ObserveOnly,
+    [switch]$SettleOnly,
+    [switch]$Report
 )
 
 $ErrorActionPreference = "Stop"
@@ -13,7 +15,7 @@ $Slate = Join-Path $ProjectRoot "outputs\us_open_2026_latest_slate.json"
 if (-not (Test-Path -LiteralPath $Python)) {
     throw "Python runtime not found at $Python"
 }
-if (-not (Test-Path -LiteralPath $Slate)) {
+if (-not $SettleOnly -and -not $Report -and -not (Test-Path -LiteralPath $Slate)) {
     throw "Prediction slate missing. Run .\scripts\predict_all.ps1 first."
 }
 
@@ -22,7 +24,7 @@ $Arguments = @(
     "--slate", $Slate,
     "--poll-seconds", $PollSeconds
 )
-if (-not $Once) {
+if (-not $Once -and -not $SettleOnly -and -not $Report) {
     $Arguments += "--watch"
 }
 if ($Cached) {
@@ -30,6 +32,12 @@ if ($Cached) {
 }
 if ($ObserveOnly) {
     $Arguments += "--observe-only"
+}
+if ($SettleOnly -or $Report) {
+    $Arguments += "--settle-only"
+}
+if ($Report) {
+    $Arguments += "--report"
 }
 
 Push-Location $ProjectRoot

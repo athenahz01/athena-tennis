@@ -23,6 +23,7 @@ from .pipeline import predict_full
 from .schema import MatchContext
 from .trading import (
     TradingConfig,
+    build_performance_report,
     enter_selected_positions,
     evaluate_match,
     load_state,
@@ -35,9 +36,17 @@ def _slug(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
-def _context(args: argparse.Namespace, *, tour: str | None = None,
-             best_of: int | None = None, round_name: str | None = None,
-             date: str | None = None, court: str | None = None) -> MatchContext:
+def _context(
+    args: argparse.Namespace,
+    *,
+    tour: str | None = None,
+    best_of: int | None = None,
+    round_name: str | None = None,
+    date: str | None = None,
+    court: str | None = None,
+    scheduled_start: str | None = None,
+    match_status: str | None = None,
+) -> MatchContext:
     resolved_tour = (tour or args.tour).upper()
     return MatchContext(
         tour=resolved_tour,
@@ -46,12 +55,18 @@ def _context(args: argparse.Namespace, *, tour: str | None = None,
         tournament=getattr(args, "tournament", "US Open"),
         round=round_name or getattr(args, "round", "R128"),
         match_date=date or getattr(args, "date", "2026-09-01"),
+        scheduled_start=scheduled_start or getattr(args, "scheduled_start", None),
+        match_status=match_status or getattr(args, "match_status", None),
         court=court or getattr(args, "court", None),
         indoor=getattr(args, "indoor", False),
         temperature_c=getattr(args, "temperature_c", None),
         humidity_pct=getattr(args, "humidity_pct", None),
         wind_kph=getattr(args, "wind_kph", None),
     )
+
+
+def _optional_text(value: Any) -> str | None:
+    return None if value is None or pd.isna(value) else str(value).strip() or None
 
 
 def _write_json(payload: dict[str, Any] | list[dict[str, Any]], path: Path) -> Path:
@@ -127,6 +142,8 @@ def command_slate(args: argparse.Namespace) -> None:
             round_name=str(row["round"]),
             date=str(row.get("date", args.date)),
             court=None if pd.isna(row.get("court")) else str(row.get("court")),
+            scheduled_start=_optional_text(row.get("scheduled_start")),
+            match_status=_optional_text(row.get("match_status")),
         )
         forecast = predict_full(
             predictor,
@@ -218,11 +235,35 @@ def _push_agent_state(state: dict[str, Any]) -> None:
     response.raise_for_status()
 
 
+def _print_performance(report: dict[str, Any]) -> None:
+    def money(cents: int | None) -> str:
+        if cents is None:
+            return "unavailable"
+        sign = "-" if cents < 0 else ""
+        return f"{sign}${abs(cents) / 100:,.2f}"
+
+    print(
+        "[report] "
+        f"positions={report['positions']} open={report['open_positions']} "
+        f"settled={report['settled_positions']} wins={report['wins']} "
+        f"losses={report['losses']} realized={money(report['realized_pnl_cents'])} "
+        f"marked_open={money(report['marked_open_pnl_cents'])} "
+        f"combined={money(report['combined_pnl_cents'])}"
+    )
+    if report["legacy_unverified_entries"]:
+        print(
+            f"[report] warning={report['legacy_unverified_entries']} existing positions "
+            "lack verified start times and are excluded from clean pre-match evaluation"
+        )
+
+
 def command_agent(args: argparse.Namespace) -> None:
     slate_path = Path(args.slate)
-    forecasts = json.loads(slate_path.read_text(encoding="utf-8"))
-    if not isinstance(forecasts, list):
-        raise ValueError("Agent slate must be a JSON array")
+    forecasts: list[dict[str, Any]] = []
+    if not args.settle_only:
+        forecasts = json.loads(slate_path.read_text(encoding="utf-8"))
+        if not isinstance(forecasts, list):
+            raise ValueError("Agent slate must be a JSON array")
     rules = TradingConfig()
     state_path = Path(args.state)
     web_path = Path(args.web_output) if args.web_output else None
@@ -234,8 +275,31 @@ def command_agent(args: argparse.Namespace) -> None:
 
     def cycle() -> None:
         nonlocal stream_warned
+        settled_markets: dict[str, dict[str, Any]] = {}
         if not args.cached:
-            settle_finalized_positions(state, journal)
+            settled_markets = settle_finalized_positions(state, journal)
+        if args.settle_only:
+            report = build_performance_report(state, settled_markets)
+            state["performance"] = report
+            state["mode"] = "paper settlement only"
+            state["rules"] = asdict(rules)
+            save_state(state, state_path, web_path)
+            try:
+                _push_agent_state(state)
+            except requests.RequestException as exc:
+                if not stream_warned:
+                    stream_warned = True
+                    print(f"[paper] website state push failed: {type(exc).__name__}")
+            print(
+                f"[paper] {state['ts']} settlement-only open={report['open_positions']} "
+                f"settled={report['settled_positions']} state={state_path}"
+            )
+            if args.report:
+                _print_performance(report)
+                if args.report_output:
+                    _write_json(report, Path(args.report_output))
+                    print(f"[report] saved={args.report_output}")
+            return
         markets_by_tour: dict[str, list[dict[str, Any]]] = {}
         if not args.cached:
             for tour in sorted({str(row["context"]["tour"]).upper() for row in forecasts}):
@@ -253,7 +317,8 @@ def command_agent(args: argparse.Namespace) -> None:
         for forecast in forecasts:
             tour = str(forecast["context"]["tour"]).upper()
             if args.cached:
-                market = forecast.get("kalshi") if (forecast.get("kalshi") or {}).get("player1") else None
+                cached_market = forecast.get("kalshi") or {}
+                market = cached_market if cached_market.get("player1") else None
             else:
                 market = compare_match(
                     forecast["player1"]["name"],
@@ -290,6 +355,8 @@ def command_agent(args: argparse.Namespace) -> None:
         state["matches"] = evaluations
         state["mode"] = "paper observation" if args.observe_only else "paper"
         state["rules"] = asdict(rules)
+        if args.report:
+            state["performance"] = build_performance_report(state, settled_markets)
         save_state(state, state_path, web_path)
         try:
             _push_agent_state(state)
@@ -303,11 +370,13 @@ def command_agent(args: argparse.Namespace) -> None:
             f"[paper] {state['ts']} watched={len(evaluations)} "
             f"entries={entries} open={open_count} state={state_path}"
         )
+        if args.report:
+            _print_performance(state["performance"])
 
     try:
         while True:
             cycle()
-            if not args.watch:
+            if not args.watch or args.settle_only:
                 break
             time.sleep(args.poll_seconds)
     except KeyboardInterrupt:
@@ -341,6 +410,19 @@ def build_parser() -> argparse.ArgumentParser:
         command.add_argument("--round", default="R128")
         command.add_argument("--date", default="2026-09-01")
         command.add_argument("--court")
+        command.add_argument("--scheduled-start")
+        command.add_argument(
+            "--match-status",
+            choices=[
+                "scheduled",
+                "pre_match",
+                "upcoming",
+                "not_started",
+                "live",
+                "suspended",
+                "completed",
+            ],
+        )
         command.add_argument("--indoor", action="store_true")
         command.add_argument("--temperature-c", type=float)
         command.add_argument("--humidity-pct", type=float)
@@ -383,8 +465,26 @@ def build_parser() -> argparse.ArgumentParser:
     agent.add_argument("--journal")
     agent.add_argument("--watch", action="store_true", help="poll until stopped")
     agent.add_argument("--poll-seconds", type=float, default=30.0)
-    agent.add_argument("--cached", action="store_true", help="use quotes already stored in the slate")
-    agent.add_argument("--observe-only", action="store_true", help="evaluate without opening paper positions")
+    agent.add_argument(
+        "--cached",
+        action="store_true",
+        help="use quotes already stored in the slate",
+    )
+    agent.add_argument(
+        "--observe-only",
+        action="store_true",
+        help="evaluate without opening paper positions",
+    )
+    agent.add_argument(
+        "--settle-only",
+        action="store_true",
+        help="settle existing positions without evaluating or opening entries",
+    )
+    agent.add_argument("--report", action="store_true", help="print a paper performance report")
+    agent.add_argument(
+        "--report-output",
+        default=str(config.OUTPUTS / "tennis_agent_report.json"),
+    )
     agent.set_defaults(func=command_agent)
     return parser
 

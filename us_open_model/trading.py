@@ -31,6 +31,7 @@ class TradingConfig:
     starting_bankroll_cents: int = 100_000
     kelly_fraction: float = 0.25
     fee_multiplier: float = 1.0
+    entry_cutoff_minutes: int = 5
     blocked_quality_flags: tuple[str, ...] = (
         "large_model_disagreement",
         "low_match_history",
@@ -67,6 +68,52 @@ def _quality_block(flags: Iterable[str], rules: TradingConfig) -> str | None:
         "missing_rank": "ranking unavailable",
     }
     return None if not blocked else "Blocked: " + ", ".join(labels[flag] for flag in blocked)
+
+
+def pre_match_entry_gate(
+    forecast: dict[str, Any],
+    market: dict[str, Any] | None,
+    *,
+    now: dt.datetime | None = None,
+    rules: TradingConfig | None = None,
+) -> tuple[bool, str, str | None]:
+    """Fail closed unless schedule and status prove that a match has not started."""
+    rules = rules or TradingConfig()
+    context = forecast.get("context") or {}
+    scheduled_text = str(context.get("scheduled_start") or "").strip()
+    if not scheduled_text:
+        return False, "blocked: verified scheduled start unavailable", None
+    try:
+        scheduled = dt.datetime.fromisoformat(scheduled_text.replace("Z", "+00:00"))
+    except ValueError:
+        return False, "blocked: scheduled start is invalid", scheduled_text
+    if scheduled.tzinfo is None or scheduled.utcoffset() is None:
+        return False, "blocked: scheduled start needs a timezone", scheduled_text
+
+    status = str(context.get("match_status") or "").strip().lower().replace("-", "_")
+    allowed_statuses = {"scheduled", "pre_match", "upcoming", "not_started"}
+    if status not in allowed_statuses:
+        if status in {"live", "in_play", "in_progress", "suspended", "completed", "final"}:
+            return (
+                False,
+                f"blocked: match status is {status.replace('_', ' ')}",
+                scheduled.isoformat(),
+            )
+        return False, "blocked: verified pre-match status unavailable", scheduled.isoformat()
+
+    market_statuses = {
+        str(value).lower() for value in (market or {}).get("market_status", []) if value
+    }
+    if market_statuses and not market_statuses.issubset({"active", "open"}):
+        return False, "blocked: Kalshi market is not open", scheduled.isoformat()
+
+    observed = now or dt.datetime.now(dt.timezone.utc)
+    if observed.tzinfo is None or observed.utcoffset() is None:
+        observed = observed.replace(tzinfo=dt.timezone.utc)
+    cutoff = scheduled - dt.timedelta(minutes=rules.entry_cutoff_minutes)
+    if observed >= cutoff:
+        return False, "blocked: entry cutoff has passed", scheduled.isoformat()
+    return True, "verified pre-match window", scheduled.isoformat()
 
 
 def _side_view(
@@ -164,6 +211,7 @@ def evaluate_match(
     session_cost_cents: int,
     existing_event: bool = False,
     rules: TradingConfig | None = None,
+    now: dt.datetime | None = None,
 ) -> dict[str, Any]:
     """Return both side evaluations and one selected paper entry, if any."""
     rules = rules or TradingConfig()
@@ -200,6 +248,20 @@ def evaluate_match(
             rules=rules,
         ),
     ]
+    gate_open, gate_reason, scheduled_start = pre_match_entry_gate(
+        forecast, market, now=now, rules=rules
+    )
+    if not gate_open:
+        for side in sides:
+            side.update(
+                {
+                    "eligible": False,
+                    "contracts": 0,
+                    "cost_cents": 0,
+                    "fee_cents": 0,
+                    "reason": gate_reason,
+                }
+            )
     eligible = [side for side in sides if side["eligible"]]
     selected = max(eligible, key=lambda side: side["edge_cents"]) if eligible else None
     if existing_event:
@@ -209,6 +271,9 @@ def evaluate_match(
     elif selected:
         state = "entry"
         reason = selected["reason"]
+    elif not gate_open:
+        state = "blocked"
+        reason = gate_reason
     elif market:
         state = "watch"
         reason = max(sides, key=lambda side: side.get("edge_cents") or -999)["reason"]
@@ -230,6 +295,8 @@ def evaluate_match(
         "model_version": forecast["model_version"],
         "quality": flags,
         "market_observed_at": (market or {}).get("observed_at"),
+        "scheduled_start": scheduled_start,
+        "entry_gate": {"open": gate_open, "reason": gate_reason},
         "state": state,
         "reason": reason,
         "sides": sides,
@@ -284,7 +351,9 @@ def enter_selected_positions(
     session = state["session"]
     positions = state["positions"]
     events = state["events"]
-    open_events = {position["event_ticker"] for position in positions if position["status"] == "open"}
+    open_events = {
+        position["event_ticker"] for position in positions if position["status"] == "open"
+    }
     for match in evaluations:
         selected = match.get("selected")
         event_ticker = match.get("event_ticker")
@@ -306,6 +375,8 @@ def enter_selected_positions(
             "contracts": selected["contracts"],
             "cost_cents": selected["cost_cents"],
             "fee_cents": selected["fee_cents"],
+            "scheduled_start": match.get("scheduled_start"),
+            "entry_gate": match.get("entry_gate"),
         }
         positions.append(position)
         open_events.add(event_ticker)
@@ -329,8 +400,11 @@ def fetch_market(ticker: str) -> dict[str, Any]:
     return response.json().get("market", response.json())
 
 
-def settle_finalized_positions(state: dict[str, Any], journal: Path) -> None:
+def settle_finalized_positions(
+    state: dict[str, Any], journal: Path
+) -> dict[str, dict[str, Any]]:
     session = state["session"]
+    fetched: dict[str, dict[str, Any]] = {}
     for position in state["positions"]:
         if position["status"] != "open":
             continue
@@ -338,9 +412,15 @@ def settle_finalized_positions(state: dict[str, Any], journal: Path) -> None:
             market = fetch_market(position["ticker"])
         except requests.RequestException:
             continue
+        fetched[position["ticker"]] = market
         result = str(market.get("result") or "").lower()
         status = str(market.get("status") or "").lower()
-        if result not in {"yes", "no"} or status not in {"determined", "finalized"}:
+        if result not in {"yes", "no"} or status not in {
+            "closed",
+            "determined",
+            "finalized",
+            "settled",
+        }:
             continue
         payout = position["contracts"] * (100 if result == "yes" else 0)
         pnl = payout - position["cost_cents"]
@@ -356,3 +436,91 @@ def settle_finalized_positions(state: dict[str, Any], journal: Path) -> None:
         state["events"].insert(0, event)
         del state["events"][50:]
         append_journal(journal, event)
+    return fetched
+
+
+def _market_bid_cents(market: dict[str, Any]) -> float | None:
+    dollars = market.get("yes_bid_dollars")
+    if dollars is not None:
+        try:
+            return float(dollars) * 100.0
+        except (TypeError, ValueError):
+            return None
+    cents = market.get("yes_bid")
+    try:
+        return float(cents) if cents is not None else None
+    except (TypeError, ValueError):
+        return None
+
+
+def build_performance_report(
+    state: dict[str, Any], markets: dict[str, dict[str, Any]] | None = None
+) -> dict[str, Any]:
+    """Summarize realized results and optional bid-side liquidation marks."""
+    markets = markets or {}
+    positions = list(state.get("positions") or [])
+    settled = [position for position in positions if position.get("status") == "settled"]
+    opened = [position for position in positions if position.get("status") == "open"]
+    realized = sum(int(position.get("pnl_cents") or 0) for position in settled)
+    marked_rows: list[dict[str, Any]] = []
+    marked_pnl = 0
+    marked_count = 0
+    for position in opened:
+        market = markets.get(str(position.get("ticker")))
+        bid = _market_bid_cents(market or {})
+        row = {
+            "ticker": position.get("ticker"),
+            "player": position.get("player"),
+            "cost_cents": int(position.get("cost_cents") or 0),
+            "bid_cents": None if bid is None else round(bid, 2),
+            "liquidation_value_cents": None,
+            "marked_pnl_cents": None,
+            "market_status": (market or {}).get("status"),
+        }
+        if bid is not None:
+            contracts = int(position.get("contracts") or 0)
+            exit_fee = taker_fee_cents(bid, contracts)
+            proceeds = max(0, int(math.floor(bid * contracts)) - exit_fee)
+            pnl = proceeds - row["cost_cents"]
+            row.update(
+                {
+                    "exit_fee_cents": exit_fee,
+                    "liquidation_value_cents": proceeds,
+                    "marked_pnl_cents": pnl,
+                }
+            )
+            marked_pnl += pnl
+            marked_count += 1
+        marked_rows.append(row)
+
+    total_cost = sum(int(position.get("cost_cents") or 0) for position in positions)
+    combined_pnl = realized + marked_pnl if marked_count == len(opened) else None
+    return {
+        "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(),
+        "positions": len(positions),
+        "open_positions": len(opened),
+        "settled_positions": len(settled),
+        "wins": sum(1 for position in settled if position.get("result") == "yes"),
+        "losses": sum(1 for position in settled if position.get("result") == "no"),
+        "settled_hit_rate": (
+            None
+            if not settled
+            else round(
+                sum(1 for position in settled if position.get("result") == "yes")
+                / len(settled),
+                4,
+            )
+        ),
+        "total_cost_cents": total_cost,
+        "realized_pnl_cents": realized,
+        "marked_open_pnl_cents": marked_pnl if marked_count else None,
+        "combined_pnl_cents": combined_pnl,
+        "combined_return": (
+            None if combined_pnl is None or not total_cost else round(combined_pnl / total_cost, 6)
+        ),
+        "marks_available": marked_count,
+        "legacy_unverified_entries": sum(
+            1 for position in positions if not position.get("scheduled_start")
+        ),
+        "open_marks": marked_rows,
+    }

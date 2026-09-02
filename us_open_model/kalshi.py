@@ -85,7 +85,9 @@ def compare_match(
         grouped[str(market.get("event_ticker"))].append(market)
     for event_ticker, event_markets in grouped.items():
         by_name = {
-            normalize_name(m.get("yes_sub_title") or str(m.get("title", "")).removesuffix(" wins")): m
+            normalize_name(
+                m.get("yes_sub_title") or str(m.get("title", "")).removesuffix(" wins")
+            ): m
             for m in event_markets
         }
         if not target.issubset(by_name):
@@ -101,6 +103,9 @@ def compare_match(
         return {
             "event_ticker": event_ticker,
             "observed_at": dt.datetime.now(dt.timezone.utc).isoformat(),
+            "market_status": sorted(
+                {str(m.get("status") or "").lower() for m in (m1, m2) if m.get("status")}
+            ),
             "player1": {
                 "name": player1,
                 "ticker": m1.get("ticker"),
@@ -109,6 +114,7 @@ def compare_match(
                 "midpoint": mid1,
                 "de_vig_probability": fair1,
                 "volume": float(m1.get("volume_fp") or m1.get("volume") or 0),
+                "status": m1.get("status"),
             },
             "player2": {
                 "name": player2,
@@ -118,9 +124,9 @@ def compare_match(
                 "midpoint": mid2,
                 "de_vig_probability": fair2,
                 "volume": float(m2.get("volume_fp") or m2.get("volume") or 0),
+                "status": m2.get("status"),
             },
             "model_minus_market_p1": None if fair1 is None else round(model_p1 - fair1, 4),
             "note": "Public quote comparison only; not a trade recommendation.",
         }
     return None
-

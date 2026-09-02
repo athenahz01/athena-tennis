@@ -65,6 +65,12 @@ us-open slate --fixtures data/fixtures/us_open_2026_2026-09-01.csv --kalshi
 # Run one market scan and exit.
 .\scripts\run_trading_agent.ps1 -Once
 
+# Settle existing paper positions without evaluating or opening new entries.
+.\scripts\run_trading_agent.ps1 -SettleOnly
+
+# Settle, mark open positions to current bids, and write the performance report.
+.\scripts\run_trading_agent.ps1 -Report
+
 # Honest chronological judge (trains before each test season).
 us-open backtest --years 2024 2025 2026
 ```
@@ -77,8 +83,11 @@ If `python` is not on PATH in this workspace, the existing sports-model runtime 
 
 ## Fixture contract
 
-CSV columns: `tour,player1,player2,best_of,round,date,court`. Only the first five are
-required. Player names are normalized for accents, punctuation and spacing and resolved
+CSV columns: `tour,player1,player2,best_of,round,date,court,scheduled_start,match_status`.
+Only the first five are required for prediction. Paper trading additionally requires a
+timezone-aware ISO 8601 `scheduled_start` and a verified `match_status` of `scheduled`,
+`pre_match`, `upcoming`, or `not_started`. Player names are normalized for accents,
+punctuation and spacing and resolved
 against the latest pre-cutoff player state. Unknown players still receive a rank-informed,
 tour-level prior and are explicitly flagged as low-data.
 
@@ -132,6 +141,12 @@ books. It buys at the displayed ask on paper, estimates the taker fee, logs ever
 and settles open positions from Kalshi's final market result. It will not average down
 or open both player contracts in the same match.
 
+Entry permission fails closed. A calendar date or Kalshi close time is not enough. Each
+forecast must contain a timezone-aware scheduled start plus a verified pre-match status,
+and the agent stops opening positions five minutes before that time. Missing, invalid,
+live, suspended, or completed status data blocks the entry. This prevents an open Kalshi
+market from being mistaken for proof that a tennis match has not started.
+
 The default controls are a $10 maximum cost per match, $100 across the session, 20
 contracts per position, a four-cent maximum spread, and quarter-Kelly sizing under the
 hard dollar caps. ATP entries need six cents of edge after the entry fee. WTA entries
@@ -142,6 +157,9 @@ The runner writes its append-only journal to `data\paper`, full state to `output
 the local website view to `web\public\data\agent.json`. Set `AGENT_STATE_URL` and
 `AGENT_STATE_KEY` to stream the same state to the deployed `/agent` page. The website
 endpoint uses the same Upstash or Vercel KV environment variables as the soccer agent.
+`-Report` also writes `outputs\tennis_agent_report.json`. Existing positions created
+before start-time verification are identified as legacy unverified entries and should
+not be included in a clean pre-match strategy evaluation.
 
 ### Vercel
 
