@@ -1,0 +1,47 @@
+tour,player1,player2,best_of,round,date,court,scheduled_start,match_status
+WTA,Jessica Pegula,Sofia Kenin,3,R64,2026-09-02,Arthur Ashe Stadium,2026-09-02T11:30:00-04:00,completed
+ATP,Ben Shelton,Hubert Hurkacz,5,R64,2026-09-02,Arthur Ashe Stadium,2026-09-02T12:40:00-04:00,completed
+WTA,Aryna Sabalenka,Polina Iatcenko,3,R64,2026-09-02,Arthur Ashe Stadium,2026-09-02T19:00:00-04:00,suspended
+ATP,Jaime Faria,Carlos Alcaraz,5,R64,2026-09-02,Arthur Ashe Stadium,2026-09-02T20:10:00-04:00,suspended
+ATP,Daniil Medvedev,Sebastian Gorzny,5,R64,2026-09-02,Louis Armstrong Stadium,2026-09-02T11:00:00-04:00,completed
+WTA,Marta Kostyuk,Sloane Stephens,3,R64,2026-09-02,Louis Armstrong Stadium,2026-09-02T12:40:00-04:00,completed
+ATP,Rei Sakamoto,Frances Tiafoe,5,R64,2026-09-02,Louis Armstrong Stadium,2026-09-02T19:00:00-04:00,suspended
+WTA,Lanlana Tararudee,Linda Noskova,3,R64,2026-09-02,Louis Armstrong Stadium,2026-09-02T20:40:00-04:00,suspended
+ATP,Brandon Nakashima,Alex Michelsen,5,R64,2026-09-02,Grandstand,2026-09-02T11:00:00-04:00,completed
+WTA,Emma Navarro,Caty McNally,3,R64,2026-09-02,Grandstand,2026-09-02T12:40:00-04:00,suspended
+WTA,Iva Jovic,Magdalena Frech,3,R128,2026-09-02,Grandstand,2026-09-02T14:00:00-04:00,suspended
+ATP,Dino Prizmic,Tommy Paul,5,R64,2026-09-02,Grandstand,2026-09-02T14:40:00-04:00,suspended
+WTA,Elina Svitolina,Maya Joint,3,R64,2026-09-02,Grandstand,2026-09-02T17:00:00-04:00,suspended
+WTA,Taylor Townsend,Taylah Preston,3,R64,2026-09-02,Stadium 17,2026-09-02T11:00:00-04:00,completed
+WTA,Daria Kasatkina,Paula Badosa,3,R128,2026-09-02,Stadium 17,2026-09-02T12:30:00-04:00,completed
+ATP,Rafael Jodar,Yunchaokete Bu,5,R128,2026-09-02,Stadium 17,2026-09-02T13:00:00-04:00,suspended
+WTA,Katie Boulter,Karolina Muchova,3,R64,2026-09-02,Stadium 17,2026-09-02T14:10:00-04:00,completed
+ATP,Lloyd Harris,Stefanos Tsitsipas,5,R64,2026-09-02,Stadium 17,2026-09-02T16:30:00-04:00,suspended
+WTA,Jasmine Paolini,Lucrezia Stefanini,3,R64,2026-09-02,Court 5,2026-09-02T11:00:00-04:00,completed
+ATP,Jan Choinski,Botic Van de Zandschulp,5,R128,2026-09-02,Court 5,2026-09-02T12:30:00-04:00,completed
+WTA,Magda Linette,Francesca Jones,3,R128,2026-09-02,Court 5,2026-09-02T14:00:00-04:00,suspended
+ATP,Jiri Lehecka,Toby Samuel,5,R64,2026-09-02,Court 5,2026-09-02T14:50:00-04:00,suspended
+WTA,Karolina Pliskova,Diana Shnaider,3,R64,2026-09-02,Court 6,2026-09-02T11:00:00-04:00,completed
+ATP,Marcos Giron,Ignacio Buse,5,R128,2026-09-02,Court 6,2026-09-02T12:30:00-04:00,suspended
+ATP,James Duckworth,Yibing Wu,5,R64,2026-09-02,Court 6,2026-09-02T14:10:00-04:00,suspended
+WTA,Mananchaya Sawangkaew,Leylah Fernandez,3,R64,2026-09-02,Court 7,2026-09-02T11:00:00-04:00,completed
+ATP,Zachary Svajda,Daniel Altmaier,5,R128,2026-09-02,Court 7,2026-09-02T12:30:00-04:00,suspended
+WTA,Xinyu Wang,Anna Kalinskaya,3,R64,2026-09-02,Court 7,2026-09-02T14:10:00-04:00,suspended
+ATP,Alexander Bublik,Adrian Mannarino,5,R64,2026-09-02,Court 7,2026-09-02T15:20:00-04:00,suspended
+ATP,Jaume Munar,Arthur Rinderknech,5,R64,2026-09-02,Court 10,2026-09-02T11:00:00-04:00,completed
+ATP,Fabian Marozsan,Michael Zheng,5,R128,2026-09-02,Court 10,2026-09-02T12:40:00-04:00,suspended
+ATP,Jesper de Jong,Francesco Passaro,5,R128,2026-09-02,Court 10,2026-09-02T14:00:00-04:00,suspended
+ATP,Daniel Merida,Andrey Rublev,5,R64,2026-09-02,Court 11,2026-09-02T11:00:00-04:00,completed
+ATP,Andrea Guerrieri,Alex de Minaur,5,R128,2026-09-02,Court 11,2026-09-02T12:40:00-04:00,suspended
+WTA,Tatjana Maria,Jelena Ostapenko,3,R128,2026-09-02,Court 11,2026-09-02T14:00:00-04:00,suspended
+WTA,Kimberly Birrell,Ekaterina Alexandrova,3,R64,2026-09-02,Court 11,2026-09-02T15:00:00-04:00,suspended
+WTA,Diane Parry,Sorana Cirstea,3,R64,2026-09-02,Court 12,2026-09-02T11:00:00-04:00,completed
+ATP,Tomas Martin Etcheverry,Jacob Fearnley,5,R64,2026-09-02,Court 12,2026-09-02T12:10:00-04:00,suspended
+ATP,Zizou Bergs,Carlos Taberner,5,R128,2026-09-02,Court 12,2026-09-02T14:00:00-04:00,suspended
+ATP,Matteo Berrettini,Mariano Navone,5,R64,2026-09-02,Court 12,2026-09-02T14:20:00-04:00,suspended
+ATP,Alex Molcan,Benjamin Bonzi,5,R128,2026-09-02,Court 13,2026-09-02T12:30:00-04:00,completed
+ATP,Denis Shapovalov,Luca Van Assche,5,R64,2026-09-02,Court 13,2026-09-02T14:00:00-04:00,suspended
+WTA,Ann Li,Donna Vekic,3,R64,2026-09-02,Court 13,2026-09-02T15:40:00-04:00,suspended
+ATP,Valentin Vacherot,Kamil Majchrzak,5,R64,2026-09-02,Court 13,2026-09-02T16:50:00-04:00,suspended
+WTA,Nikola Bartunkova,Mayar Sherif,3,R128,2026-09-02,Court 15,2026-09-02T14:00:00-04:00,completed
+WTA,Oksana Selekhmeteva,Kamilla Rakhimova,3,R64,2026-09-02,Court 15,2026-09-02T14:40:00-04:00,suspended

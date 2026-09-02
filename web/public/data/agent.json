@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
-  "ts": "2026-09-02T04:53:46.993840+00:00",
+  "ts": "2026-09-02T21:03:37.500830+00:00",
   "mode": "paper settlement only",
   "session": {
     "started_at": "2026-09-01T23:31:31.366523+00:00",
     "buys": 9,
-    "settles": 0,
+    "settles": 3,
     "fees_cents": 257,
-    "realized_cents": 0,
-    "open_cost_cents": 6663,
+    "realized_cents": -904,
+    "open_cost_cents": 4559,
     "starting_bankroll_cents": 100000,
-    "bankroll_cents": 93337
+    "bankroll_cents": 94537
   },
   "positions": [
     {
@@ -30,7 +30,7 @@
       "fee_cents": 26
     },
     {
-      "status": "open",
+      "status": "settled",
       "opened_at": "2026-09-01T23:46:20.464977+00:00",
       "event_ticker": "KXWTAMATCH-26AUG30KASBAD",
       "ticker": "KXWTAMATCH-26AUG30KASBAD-KAS",
@@ -43,7 +43,10 @@
       "edge_cents": 23.71,
       "contracts": 20,
       "cost_cents": 485,
-      "fee_cents": 25
+      "fee_cents": 25,
+      "settled_at": "2026-09-02T21:03:35.644833+00:00",
+      "result": "no",
+      "pnl_cents": -485
     },
     {
       "status": "open",
@@ -126,7 +129,7 @@
       "fee_cents": 35
     },
     {
-      "status": "open",
+      "status": "settled",
       "opened_at": "2026-09-01T23:46:20.470023+00:00",
       "event_ticker": "KXATPMATCH-26AUG30MOLBON",
       "ticker": "KXATPMATCH-26AUG30MOLBON-MOL",
@@ -139,10 +142,13 @@
       "edge_cents": 12.21,
       "contracts": 20,
       "cost_cents": 691,
-      "fee_cents": 31
+      "fee_cents": 31,
+      "settled_at": "2026-09-02T21:03:37.208271+00:00",
+      "result": "no",
+      "pnl_cents": -691
     },
     {
-      "status": "open",
+      "status": "settled",
       "opened_at": "2026-09-02T02:55:43.039977+00:00",
       "event_ticker": "KXATPMATCH-26AUG30ZVESON",
       "ticker": "KXATPMATCH-26AUG30ZVESON-ZVE",
@@ -155,7 +161,10 @@
       "edge_cents": 8.71,
       "contracts": 12,
       "cost_cents": 928,
-      "fee_cents": 16
+      "fee_cents": 16,
+      "settled_at": "2026-09-02T21:03:37.500830+00:00",
+      "result": "yes",
+      "pnl_cents": 272
     }
   ],
   "matches": [
@@ -2414,6 +2423,69 @@
   ],
   "events": [
     {
+      "kind": "settle",
+      "ts": "2026-09-02T21:03:37.500830+00:00",
+      "status": "settled",
+      "opened_at": "2026-09-02T02:55:43.039977+00:00",
+      "event_ticker": "KXATPMATCH-26AUG30ZVESON",
+      "ticker": "KXATPMATCH-26AUG30ZVESON-ZVE",
+      "tour": "ATP",
+      "player": "Alexander Zverev",
+      "opponent": "Lorenzo Sonego",
+      "side": "player1",
+      "fair_cents": 86.71,
+      "entry_cents": 76.0,
+      "edge_cents": 8.71,
+      "contracts": 12,
+      "cost_cents": 928,
+      "fee_cents": 16,
+      "settled_at": "2026-09-02T21:03:37.500830+00:00",
+      "result": "yes",
+      "pnl_cents": 272
+    },
+    {
+      "kind": "settle",
+      "ts": "2026-09-02T21:03:37.208271+00:00",
+      "status": "settled",
+      "opened_at": "2026-09-01T23:46:20.470023+00:00",
+      "event_ticker": "KXATPMATCH-26AUG30MOLBON",
+      "ticker": "KXATPMATCH-26AUG30MOLBON-MOL",
+      "tour": "ATP",
+      "player": "Alex Molcan",
+      "opponent": "Benjamin Bonzi",
+      "side": "player1",
+      "fair_cents": 47.21,
+      "entry_cents": 33.0,
+      "edge_cents": 12.21,
+      "contracts": 20,
+      "cost_cents": 691,
+      "fee_cents": 31,
+      "settled_at": "2026-09-02T21:03:37.208271+00:00",
+      "result": "no",
+      "pnl_cents": -691
+    },
+    {
+      "kind": "settle",
+      "ts": "2026-09-02T21:03:35.644833+00:00",
+      "status": "settled",
+      "opened_at": "2026-09-01T23:46:20.464977+00:00",
+      "event_ticker": "KXWTAMATCH-26AUG30KASBAD",
+      "ticker": "KXWTAMATCH-26AUG30KASBAD-KAS",
+      "tour": "WTA",
+      "player": "Daria Kasatkina",
+      "opponent": "Paula Badosa",
+      "side": "player1",
+      "fair_cents": 48.71,
+      "entry_cents": 23.0,
+      "edge_cents": 23.71,
+      "contracts": 20,
+      "cost_cents": 485,
+      "fee_cents": 25,
+      "settled_at": "2026-09-02T21:03:35.644833+00:00",
+      "result": "no",
+      "pnl_cents": -485
+    },
+    {
       "kind": "buy",
       "ts": "2026-09-02T02:55:43.039977+00:00",
       "status": "open",
@@ -2597,40 +2669,30 @@
     ]
   },
   "performance": {
-    "generated_at": "2026-09-02T04:53:46.993840+00:00",
+    "generated_at": "2026-09-02T21:03:37.500830+00:00",
     "positions": 9,
-    "open_positions": 9,
-    "settled_positions": 0,
-    "wins": 0,
-    "losses": 0,
-    "settled_hit_rate": null,
+    "open_positions": 6,
+    "settled_positions": 3,
+    "wins": 1,
+    "losses": 2,
+    "settled_hit_rate": 0.3333,
     "total_cost_cents": 6663,
-    "realized_pnl_cents": 0,
-    "marked_open_pnl_cents": -1457,
-    "combined_pnl_cents": -1457,
-    "combined_return": -0.21867,
-    "marks_available": 9,
+    "realized_pnl_cents": -904,
+    "marked_open_pnl_cents": -1838,
+    "combined_pnl_cents": -2742,
+    "combined_return": -0.411526,
+    "marks_available": 6,
     "legacy_unverified_entries": 9,
     "open_marks": [
       {
         "ticker": "KXWTAMATCH-26AUG30JOVFRE-FRE",
         "player": "Magdalena Frech",
         "cost_cents": 506,
-        "bid_cents": 28.0,
-        "liquidation_value_cents": 531,
-        "marked_pnl_cents": 25,
+        "bid_cents": 25.0,
+        "liquidation_value_cents": 473,
+        "marked_pnl_cents": -33,
         "market_status": "active",
-        "exit_fee_cents": 29
-      },
-      {
-        "ticker": "KXWTAMATCH-26AUG30KASBAD-KAS",
-        "player": "Daria Kasatkina",
-        "cost_cents": 485,
-        "bid_cents": 9.0,
-        "liquidation_value_cents": 168,
-        "marked_pnl_cents": -317,
-        "market_status": "active",
-        "exit_fee_cents": 12
+        "exit_fee_cents": 27
       },
       {
         "ticker": "KXATPMATCH-26AUG30DEJPAS-DEJ",
@@ -2646,9 +2708,9 @@
         "ticker": "KXWTAMATCH-26AUG30MAROST-OST",
         "player": "Jelena Ostapenko",
         "cost_cents": 986,
-        "bid_cents": 47.0,
-        "liquidation_value_cents": 814,
-        "marked_pnl_cents": -172,
+        "bid_cents": 51.0,
+        "liquidation_value_cents": 886,
+        "marked_pnl_cents": -100,
         "market_status": "active",
         "exit_fee_cents": 32
       },
@@ -2656,51 +2718,31 @@
         "ticker": "KXATPMATCH-26AUG30MARZHE-MAR",
         "player": "Fabian Marozsan",
         "cost_cents": 834,
-        "bid_cents": 38.0,
-        "liquidation_value_cents": 727,
-        "marked_pnl_cents": -107,
+        "bid_cents": 30.0,
+        "liquidation_value_cents": 570,
+        "marked_pnl_cents": -264,
         "market_status": "active",
-        "exit_fee_cents": 33
+        "exit_fee_cents": 30
       },
       {
         "ticker": "KXATPMATCH-26AUG30BERTAB-TAB",
         "player": "Carlos Taberner",
         "cost_cents": 423,
-        "bid_cents": 6.0,
-        "liquidation_value_cents": 112,
-        "marked_pnl_cents": -311,
+        "bid_cents": 4.0,
+        "liquidation_value_cents": 74,
+        "marked_pnl_cents": -349,
         "market_status": "active",
-        "exit_fee_cents": 8
+        "exit_fee_cents": 6
       },
       {
         "ticker": "KXATPMATCH-26AUG30SVAALT-ALT",
         "player": "Daniel Altmaier",
         "cost_cents": 875,
-        "bid_cents": 41.0,
-        "liquidation_value_cents": 786,
-        "marked_pnl_cents": -89,
+        "bid_cents": 9.0,
+        "liquidation_value_cents": 168,
+        "marked_pnl_cents": -707,
         "market_status": "active",
-        "exit_fee_cents": 34
-      },
-      {
-        "ticker": "KXATPMATCH-26AUG30MOLBON-MOL",
-        "player": "Alex Molcan",
-        "cost_cents": 691,
-        "bid_cents": 32.0,
-        "liquidation_value_cents": 609,
-        "marked_pnl_cents": -82,
-        "market_status": "active",
-        "exit_fee_cents": 31
-      },
-      {
-        "ticker": "KXATPMATCH-26AUG30ZVESON-ZVE",
-        "player": "Alexander Zverev",
-        "cost_cents": 928,
-        "bid_cents": 77.0,
-        "liquidation_value_cents": 909,
-        "marked_pnl_cents": -19,
-        "market_status": "active",
-        "exit_fee_cents": 15
+        "exit_fee_cents": 12
       }
     ]
   }
