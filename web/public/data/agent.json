@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "ts": "2026-09-02T21:03:37.500830+00:00",
+  "ts": "2026-09-04T14:33:54.960654+00:00",
   "mode": "paper settlement only",
   "session": {
     "started_at": "2026-09-01T23:31:31.366523+00:00",
@@ -2669,7 +2669,7 @@
     ]
   },
   "performance": {
-    "generated_at": "2026-09-02T21:03:37.500830+00:00",
+    "generated_at": "2026-09-04T14:33:54.960654+00:00",
     "positions": 9,
     "open_positions": 6,
     "settled_positions": 3,
@@ -2678,71 +2678,65 @@
     "settled_hit_rate": 0.3333,
     "total_cost_cents": 6663,
     "realized_pnl_cents": -904,
-    "marked_open_pnl_cents": -1838,
-    "combined_pnl_cents": -2742,
-    "combined_return": -0.411526,
-    "marks_available": 6,
+    "marked_open_pnl_cents": null,
+    "combined_pnl_cents": null,
+    "combined_return": null,
+    "marks_available": 0,
     "legacy_unverified_entries": 9,
     "open_marks": [
       {
         "ticker": "KXWTAMATCH-26AUG30JOVFRE-FRE",
         "player": "Magdalena Frech",
         "cost_cents": 506,
-        "bid_cents": 25.0,
-        "liquidation_value_cents": 473,
-        "marked_pnl_cents": -33,
-        "market_status": "active",
-        "exit_fee_cents": 27
+        "bid_cents": null,
+        "liquidation_value_cents": null,
+        "marked_pnl_cents": null,
+        "market_status": null
       },
       {
         "ticker": "KXATPMATCH-26AUG30DEJPAS-DEJ",
         "player": "Jesper de Jong",
         "cost_cents": 935,
-        "bid_cents": 29.0,
-        "liquidation_value_cents": 550,
-        "marked_pnl_cents": -385,
-        "market_status": "active",
-        "exit_fee_cents": 29
+        "bid_cents": null,
+        "liquidation_value_cents": null,
+        "marked_pnl_cents": null,
+        "market_status": null
       },
       {
         "ticker": "KXWTAMATCH-26AUG30MAROST-OST",
         "player": "Jelena Ostapenko",
         "cost_cents": 986,
-        "bid_cents": 51.0,
-        "liquidation_value_cents": 886,
-        "marked_pnl_cents": -100,
-        "market_status": "active",
-        "exit_fee_cents": 32
+        "bid_cents": null,
+        "liquidation_value_cents": null,
+        "marked_pnl_cents": null,
+        "market_status": null
       },
       {
         "ticker": "KXATPMATCH-26AUG30MARZHE-MAR",
         "player": "Fabian Marozsan",
         "cost_cents": 834,
-        "bid_cents": 30.0,
-        "liquidation_value_cents": 570,
-        "marked_pnl_cents": -264,
-        "market_status": "active",
-        "exit_fee_cents": 30
+        "bid_cents": null,
+        "liquidation_value_cents": null,
+        "marked_pnl_cents": null,
+        "market_status": null
       },
       {
         "ticker": "KXATPMATCH-26AUG30BERTAB-TAB",
         "player": "Carlos Taberner",
         "cost_cents": 423,
-        "bid_cents": 4.0,
-        "liquidation_value_cents": 74,
-        "marked_pnl_cents": -349,
-        "market_status": "active",
-        "exit_fee_cents": 6
+        "bid_cents": null,
+        "liquidation_value_cents": null,
+        "marked_pnl_cents": null,
+        "market_status": null
       },
       {
         "ticker": "KXATPMATCH-26AUG30SVAALT-ALT",
         "player": "Daniel Altmaier",
         "cost_cents": 875,
-        "bid_cents": 9.0,
-        "liquidation_value_cents": 168,
-        "marked_pnl_cents": -707,
-        "market_status": "active",
-        "exit_fee_cents": 12
+        "bid_cents": null,
+        "liquidation_value_cents": null,
+        "marked_pnl_cents": null,
+        "market_status": null
       }
     ]
   }
