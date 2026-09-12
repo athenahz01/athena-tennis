@@ -4,13 +4,13 @@
     "trained_at": "2026-09-01T15:24:27.353363+00:00",
     "training_cutoff": "2026-08-30",
     "context": {
-      "tour": "ATP",
+      "tour": "WTA",
       "surface": "Hard",
-      "best_of": 5,
+      "best_of": 3,
       "tournament": "US Open",
-      "round": "SF",
-      "match_date": "2026-09-11",
-      "scheduled_start": "2026-09-11T15:00:00-04:00",
+      "round": "F",
+      "match_date": "2026-09-12",
+      "scheduled_start": "2026-09-12T16:00:00-04:00",
       "match_status": null,
       "court": "Arthur Ashe Stadium",
       "indoor": false,
@@ -20,651 +20,252 @@
       "altitude_m": 10.0
     },
     "player1": {
-      "name": "Alexander Zverev",
-      "player_id": "Z355",
-      "tour": "ATP",
+      "name": "Aryna Sabalenka",
+      "player_id": "214544.0",
+      "tour": "WTA",
       "hand": "R",
-      "height_cm": 198.0,
-      "age": 29.333,
-      "rank": 3.0,
-      "elo": 2091.39216005159,
-      "surface_elo": 1910.5921063561268,
-      "serve_point_p": 0.6981864274181022,
-      "return_point_p": 0.3686619133003901,
-      "ace_rate": 0.11907166392153376,
-      "double_fault_rate": 0.02891003604535209,
-      "first_serve_in": 0.7124256661252193,
-      "first_serve_win": 0.7617742728689051,
-      "second_serve_win": 0.5407655368513322,
-      "matches_seen": 775,
-      "surface_matches_seen": 447,
-      "days_rest": 16,
+      "height_cm": 182.0,
+      "age": 28.274,
+      "rank": 1.0,
+      "elo": 1792.6761478272508,
+      "surface_elo": 1738.1926050304696,
+      "serve_point_p": 0.6388109177654165,
+      "return_point_p": 0.45734221709690803,
+      "ace_rate": 0.07407243002440836,
+      "double_fault_rate": 0.041796997483373184,
+      "first_serve_in": 0.6327269203918103,
+      "first_serve_win": 0.7015928811740498,
+      "second_serve_win": 0.5242843913357028,
+      "matches_seen": 48,
+      "surface_matches_seen": 30,
+      "days_rest": 24,
       "matches_14d": 0,
       "minutes_14d": 0.0,
-      "last_match_minutes": 171.0,
+      "last_match_minutes": 90.0,
       "data_quality": []
     },
     "player2": {
-      "name": "Karen Khachanov",
-      "player_id": "KE29",
-      "tour": "ATP",
+      "name": "Elena Rybakina",
+      "player_id": "214981.0",
+      "tour": "WTA",
       "hand": "R",
-      "height_cm": 198.0,
-      "age": 30.234,
-      "rank": 39.0,
-      "elo": 1629.5794838953193,
-      "surface_elo": 1614.257113403159,
-      "serve_point_p": 0.6680091925191991,
-      "return_point_p": 0.36036737834388705,
-      "ace_rate": 0.09505768299426258,
-      "double_fault_rate": 0.026090781789101826,
-      "first_serve_in": 0.6385111225936525,
-      "first_serve_win": 0.7484096559340365,
-      "second_serve_win": 0.5261854699049363,
-      "matches_seen": 557,
-      "surface_matches_seen": 361,
-      "days_rest": 27,
-      "matches_14d": 0,
-      "minutes_14d": 0.0,
-      "last_match_minutes": 142.0,
-      "data_quality": []
-    },
-    "probabilities": {
-      "elo": 0.90289,
-      "point_model": 0.710385,
-      "machine_learning": 0.86887,
-      "stack": 0.844384,
-      "final": 0.844384,
-      "champion_component": "stack"
-    },
-    "serve_matchup": {
-      "player1_service_point_win": 0.702393,
-      "player2_service_point_win": 0.664503,
-      "simulation_aligned_player1": 0.717329,
-      "simulation_aligned_player2": 0.648145
-    },
-    "model_disagreement": 0.1925,
-    "data_quality": [
-      "large_model_disagreement"
-    ],
-    "feature_values": {
-      "elo_diff": 1.154532,
-      "surface_elo_diff": 0.740837,
-      "rank_log_diff": 2.564949,
-      "serve_diff": 0.030177,
-      "return_diff": 0.008295,
-      "matchup_serve_diff": 0.037889,
-      "elo_logit": 2.229753,
-      "point_logit": 0.897256,
-      "age_diff": -0.0901,
-      "height_diff": 0.0,
-      "rest_diff": -0.785714,
-      "matches_14d_diff": 0.0,
-      "minutes_14d_diff": 0.0,
-      "last_minutes_diff": 0.161111,
-      "recent_win_diff": 0.214286,
-      "surface_win_diff": 0.125718,
-      "h2h_shrunk": 0.181818,
-      "lefty_diff": 0.0,
-      "grand_slam": 1.0,
-      "best_of_five": 1.0,
-      "round_progress": 0.9,
-      "low_data_diff": 0.0
-    },
-    "simulation": {
-      "n_sims": 20000,
-      "simulation_seed": 20260901,
-      "raw_simulation_p1_win": 0.8525,
-      "total_games": {
-        "mean": 40.699,
-        "p10": 29.0,
-        "p50": 40.0,
-        "p90": 54.0
-      },
-      "game_margin_p1": {
-        "mean": 4.224,
-        "p10": -2.0,
-        "p50": 5.0,
-        "p90": 8.0
-      },
-      "duration_minutes": {
-        "mean": 149.169,
-        "p10": 102.324,
-        "p50": 145.189,
-        "p90": 202.563
-      },
-      "p_tiebreak": 0.7137,
-      "expected_tiebreaks": 1.117,
-      "p_deciding_set": 0.2522,
-      "p1_straight_sets": 0.3592,
-      "p2_straight_sets": 0.0233,
-      "set_score_distribution": {
-        "3-0": 0.3592,
-        "3-1": 0.3119,
-        "3-2": 0.1815,
-        "2-3": 0.0707,
-        "1-3": 0.0534,
-        "0-3": 0.0233
-      },
-      "top_exact_scores": [
-        {
-          "score": "6-4 6-4 6-4",
-          "probability": 0.0155
-        },
-        {
-          "score": "6-3 6-4 6-4",
-          "probability": 0.0138
-        },
-        {
-          "score": "6-4 6-4 7-6",
-          "probability": 0.0098
-        },
-        {
-          "score": "7-6 6-4 6-4",
-          "probability": 0.009
-        },
-        {
-          "score": "6-3 6-4 7-6",
-          "probability": 0.0082
-        },
-        {
-          "score": "6-4 7-6 6-3",
-          "probability": 0.0081
-        },
-        {
-          "score": "7-6 6-3 6-4",
-          "probability": 0.0079
-        },
-        {
-          "score": "6-3 7-6 6-3",
-          "probability": 0.0076
-        }
-      ],
-      "total_games_probabilities": {
-        "over_18.5": 1.0,
-        "over_19.5": 1.0,
-        "over_20.5": 1.0,
-        "over_21.5": 1.0,
-        "over_22.5": 0.9997,
-        "over_23.5": 0.9981,
-        "over_24.5": 0.9949,
-        "over_25.5": 0.986,
-        "over_26.5": 0.9741,
-        "over_27.5": 0.9493,
-        "over_28.5": 0.9194,
-        "over_29.5": 0.8809,
-        "over_30.5": 0.8357,
-        "over_31.5": 0.7905,
-        "over_32.5": 0.7413,
-        "over_33.5": 0.7046,
-        "over_34.5": 0.679,
-        "over_35.5": 0.6392,
-        "over_36.5": 0.6073,
-        "over_37.5": 0.5891,
-        "over_38.5": 0.5608,
-        "over_39.5": 0.5273,
-        "over_40.5": 0.4945,
-        "over_41.5": 0.454,
-        "over_42.5": 0.4147,
-        "over_43.5": 0.3831,
-        "over_44.5": 0.3454,
-        "over_45.5": 0.3085,
-        "over_46.5": 0.2832,
-        "over_47.5": 0.2616,
-        "over_48.5": 0.2343,
-        "over_49.5": 0.2092,
-        "over_50.5": 0.1879
-      },
-      "player1_stats": {
-        "aces": {
-          "mean": 14.299,
-          "p10": 8.0,
-          "p50": 14.0,
-          "p90": 21.0
-        },
-        "double_faults": {
-          "mean": 3.48,
-          "p10": 1.0,
-          "p50": 3.0,
-          "p90": 6.0
-        },
-        "service_points": {
-          "mean": 120.344,
-          "p10": 82.0,
-          "p50": 118.0,
-          "p90": 163.0
-        },
-        "service_points_won": {
-          "mean": 86.365,
-          "p10": 61.0,
-          "p50": 85.0,
-          "p90": 115.0
-        },
-        "first_serves_in": {
-          "mean": 87.36,
-          "p10": 60.0,
-          "p50": 86.0,
-          "p90": 119.0
-        },
-        "first_serve_points_won": {
-          "mean": 65.637,
-          "p10": 46.0,
-          "p50": 64.0,
-          "p90": 88.0
-        },
-        "second_serve_points_won": {
-          "mean": 20.728,
-          "p10": 13.0,
-          "p50": 20.0,
-          "p90": 29.0
-        },
-        "service_games": {
-          "mean": 19.911,
-          "p10": 15.0,
-          "p50": 20.0,
-          "p90": 26.0
-        },
-        "breaks": {
-          "mean": 3.447,
-          "p10": 2.0,
-          "p50": 3.0,
-          "p90": 5.0
-        },
-        "break_points_faced": {
-          "mean": 5.617,
-          "p10": 1.0,
-          "p50": 5.0,
-          "p90": 10.0
-        },
-        "break_points_saved": {
-          "mean": 4.028,
-          "p10": 1.0,
-          "p50": 4.0,
-          "p90": 8.0
-        }
-      },
-      "player2_stats": {
-        "aces": {
-          "mean": 12.266,
-          "p10": 6.0,
-          "p50": 12.0,
-          "p90": 19.0
-        },
-        "double_faults": {
-          "mean": 3.363,
-          "p10": 1.0,
-          "p50": 3.0,
-          "p90": 6.0
-        },
-        "service_points": {
-          "mean": 128.86,
-          "p10": 88.0,
-          "p50": 126.0,
-          "p90": 174.0
-        },
-        "service_points_won": {
-          "mean": 83.421,
-          "p10": 54.0,
-          "p50": 82.0,
-          "p90": 116.0
-        },
-        "first_serves_in": {
-          "mean": 84.589,
-          "p10": 57.0,
-          "p50": 83.0,
-          "p90": 116.0
-        },
-        "first_serve_points_won": {
-          "mean": 57.726,
-          "p10": 37.0,
-          "p50": 56.0,
-          "p90": 81.0
-        },
-        "second_serve_points_won": {
-          "mean": 25.695,
-          "p10": 15.0,
-          "p50": 25.0,
-          "p90": 37.0
-        },
-        "service_games": {
-          "mean": 19.671,
-          "p10": 14.0,
-          "p50": 20.0,
-          "p90": 26.0
-        },
-        "breaks": {
-          "mean": 1.589,
-          "p10": 0.0,
-          "p50": 1.0,
-          "p90": 3.0
-        },
-        "break_points_faced": {
-          "mean": 9.724,
-          "p10": 5.0,
-          "p50": 9.0,
-          "p90": 15.0
-        },
-        "break_points_saved": {
-          "mean": 6.277,
-          "p10": 2.0,
-          "p50": 6.0,
-          "p90": 11.0
-        }
-      }
-    },
-    "winner": {
-      "name": "Alexander Zverev",
-      "probability": 0.8444
-    },
-    "kalshi": {
-      "event_ticker": "KXATPMATCH-26SEP11ZVEKHA",
-      "observed_at": "2026-09-11T17:27:35.825800+00:00",
-      "market_status": [
-        "active"
-      ],
-      "player1": {
-        "name": "Alexander Zverev",
-        "ticker": "KXATPMATCH-26SEP11ZVEKHA-ZVE",
-        "bid": 0.79,
-        "ask": 0.8,
-        "midpoint": 0.795,
-        "de_vig_probability": 0.795,
-        "volume": 408376.04,
-        "status": "active"
-      },
-      "player2": {
-        "name": "Karen Khachanov",
-        "ticker": "KXATPMATCH-26SEP11ZVEKHA-KHA",
-        "bid": 0.2,
-        "ask": 0.21,
-        "midpoint": 0.20500000000000002,
-        "de_vig_probability": 0.20499999999999996,
-        "volume": 477141.79,
-        "status": "active"
-      },
-      "model_minus_market_p1": 0.0494,
-      "note": "Public quote comparison only; not a trade recommendation."
-    }
-  },
-  {
-    "model_version": "uso-hybrid-v1",
-    "trained_at": "2026-09-01T15:24:27.353363+00:00",
-    "training_cutoff": "2026-08-30",
-    "context": {
-      "tour": "ATP",
-      "surface": "Hard",
-      "best_of": 5,
-      "tournament": "US Open",
-      "round": "SF",
-      "match_date": "2026-09-11",
-      "scheduled_start": "2026-09-11T19:00:00-04:00",
-      "match_status": null,
-      "court": "Arthur Ashe Stadium",
-      "indoor": false,
-      "temperature_c": null,
-      "humidity_pct": null,
-      "wind_kph": null,
-      "altitude_m": 10.0
-    },
-    "player1": {
-      "name": "Ben Shelton",
-      "player_id": "S0S1",
-      "tour": "ATP",
-      "hand": "L",
-      "height_cm": 193.0,
-      "age": 23.844,
-      "rank": 10.0,
-      "elo": 1943.4959829494214,
-      "surface_elo": 1853.7516797390374,
-      "serve_point_p": 0.6968337801194032,
-      "return_point_p": 0.32918923721816484,
-      "ace_rate": 0.11871576506477999,
-      "double_fault_rate": 0.035729322735456384,
-      "first_serve_in": 0.6693335611638563,
-      "first_serve_win": 0.7644219606590607,
-      "second_serve_win": 0.5598727458813153,
-      "matches_seen": 222,
-      "surface_matches_seen": 146,
-      "days_rest": 16,
+      "height_cm": 184.0,
+      "age": 27.157,
+      "rank": 2.0,
+      "elo": 1817.375282273112,
+      "surface_elo": 1750.48326765683,
+      "serve_point_p": 0.6264804487186669,
+      "return_point_p": 0.4317974416269287,
+      "ace_rate": 0.08565111581121662,
+      "double_fault_rate": 0.05047230689421226,
+      "first_serve_in": 0.5775417943156538,
+      "first_serve_win": 0.7160000536191393,
+      "second_serve_win": 0.5011293556820615,
+      "matches_seen": 50,
+      "surface_matches_seen": 33,
+      "days_rest": 24,
       "matches_14d": 0,
       "minutes_14d": 0.0,
       "last_match_minutes": 87.0,
       "data_quality": []
     },
-    "player2": {
-      "name": "Frances Tiafoe",
-      "player_id": "TD51",
-      "tour": "ATP",
-      "hand": "R",
-      "height_cm": 188.0,
-      "age": 28.586,
-      "rank": 23.0,
-      "elo": 1942.276542922074,
-      "surface_elo": 1784.0842781715676,
-      "serve_point_p": 0.6575834732926682,
-      "return_point_p": 0.3567999631224625,
-      "ace_rate": 0.09258741851944026,
-      "double_fault_rate": 0.028128379811985987,
-      "first_serve_in": 0.5898344095612136,
-      "first_serve_win": 0.7488732147508004,
-      "second_serve_win": 0.5263201899253731,
-      "matches_seen": 481,
-      "surface_matches_seen": 326,
-      "days_rest": 12,
-      "matches_14d": 1,
-      "minutes_14d": 137.0,
-      "last_match_minutes": 137.0,
-      "data_quality": []
-    },
     "probabilities": {
-      "elo": 0.545952,
-      "point_model": 0.568318,
-      "machine_learning": 0.638294,
-      "stack": 0.616679,
-      "final": 0.616679,
-      "champion_component": "stack"
+      "elo": 0.472519,
+      "point_model": 0.684767,
+      "machine_learning": 0.552386,
+      "stack": 0.540747,
+      "final": 0.472519,
+      "champion_component": "elo_2026_safety_fallback"
     },
     "serve_matchup": {
-      "player1_service_point_win": 0.704292,
-      "player2_service_point_win": 0.692252,
-      "simulation_aligned_player1": 0.708585,
-      "simulation_aligned_player2": 0.687824
+      "player1_service_point_win": 0.622787,
+      "player2_service_point_win": 0.585371,
+      "simulation_aligned_player1": 0.601548,
+      "simulation_aligned_player2": 0.606909
     },
-    "model_disagreement": 0.0923,
+    "model_disagreement": 0.2122,
     "data_quality": [
-      "ok"
+      "large_model_disagreement",
+      "2026_wta_stack_failed_gate_using_elo_fallback"
     ],
     "feature_values": {
-      "elo_diff": 0.003049,
-      "surface_elo_diff": 0.174169,
-      "rank_log_diff": 0.832909,
-      "serve_diff": 0.03925,
-      "return_diff": -0.027611,
-      "matchup_serve_diff": 0.012039,
-      "elo_logit": 0.184328,
-      "point_logit": 0.274991,
-      "age_diff": -0.4742,
-      "height_diff": 0.25,
-      "rest_diff": 0.285714,
-      "matches_14d_diff": -0.25,
-      "minutes_14d_diff": -0.274,
-      "last_minutes_diff": -0.277778,
-      "recent_win_diff": 0.0,
-      "surface_win_diff": 0.1,
-      "h2h_shrunk": 0.285714,
-      "lefty_diff": 1.0,
+      "elo_diff": -0.061748,
+      "surface_elo_diff": -0.030727,
+      "rank_log_diff": 0.693147,
+      "serve_diff": 0.01233,
+      "return_diff": 0.025545,
+      "matchup_serve_diff": 0.037416,
+      "elo_logit": -0.110037,
+      "point_logit": 0.775765,
+      "age_diff": 0.1117,
+      "height_diff": -0.1,
+      "rest_diff": 0.0,
+      "matches_14d_diff": 0.0,
+      "minutes_14d_diff": 0.0,
+      "last_minutes_diff": 0.016667,
+      "recent_win_diff": -0.071429,
+      "surface_win_diff": 0.04213,
+      "h2h_shrunk": 0.166667,
+      "lefty_diff": 0.0,
       "grand_slam": 1.0,
-      "best_of_five": 1.0,
-      "round_progress": 0.9,
+      "best_of_five": 0.0,
+      "round_progress": 1.0,
       "low_data_diff": 0.0
     },
     "simulation": {
       "n_sims": 20000,
-      "simulation_seed": 20260902,
-      "raw_simulation_p1_win": 0.6209,
+      "simulation_seed": 20260901,
+      "raw_simulation_p1_win": 0.4696,
       "total_games": {
-        "mean": 44.716,
-        "p10": 32.0,
-        "p50": 45.0,
-        "p90": 57.0
+        "mean": 24.948,
+        "p10": 18.0,
+        "p50": 25.0,
+        "p90": 33.0
       },
       "game_margin_p1": {
-        "mean": 1.233,
-        "p10": -5.0,
-        "p50": 2.0,
+        "mean": -0.321,
+        "p10": -6.0,
+        "p50": -1.0,
         "p90": 6.0
       },
       "duration_minutes": {
-        "mean": 162.866,
-        "p10": 112.586,
-        "p50": 161.674,
-        "p90": 214.221
+        "mean": 95.714,
+        "p10": 65.076,
+        "p50": 93.454,
+        "p90": 129.504
       },
-      "p_tiebreak": 0.8413,
-      "expected_tiebreaks": 1.528,
-      "p_deciding_set": 0.3627,
-      "p1_straight_sets": 0.1786,
-      "p2_straight_sets": 0.0833,
+      "p_tiebreak": 0.381,
+      "expected_tiebreaks": 0.444,
+      "p_deciding_set": 0.4962,
+      "p1_straight_sets": 0.2325,
+      "p2_straight_sets": 0.2713,
       "set_score_distribution": {
-        "3-1": 0.2335,
-        "3-2": 0.2087,
-        "3-0": 0.1786,
-        "2-3": 0.154,
-        "1-3": 0.1419,
-        "0-3": 0.0833
+        "0-2": 0.2713,
+        "1-2": 0.2591,
+        "2-1": 0.2371,
+        "2-0": 0.2325
       },
       "top_exact_scores": [
         {
-          "score": "7-6 7-6 7-6",
-          "probability": 0.0086
+          "score": "4-6 4-6",
+          "probability": 0.0208
         },
         {
-          "score": "6-4 7-6 7-6",
-          "probability": 0.007
+          "score": "6-4 6-4",
+          "probability": 0.0198
         },
         {
-          "score": "6-4 6-4 6-4",
-          "probability": 0.0067
+          "score": "3-6 4-6",
+          "probability": 0.0198
         },
         {
-          "score": "6-4 6-4 7-6",
-          "probability": 0.0065
+          "score": "6-3 6-4",
+          "probability": 0.0163
         },
         {
-          "score": "6-3 6-4 6-4",
-          "probability": 0.0064
+          "score": "4-6 3-6",
+          "probability": 0.0136
         },
         {
-          "score": "7-6 6-4 7-6",
-          "probability": 0.0063
+          "score": "7-6 6-4",
+          "probability": 0.0126
         },
         {
-          "score": "7-6 6-4 6-4",
-          "probability": 0.0062
+          "score": "3-6 3-6",
+          "probability": 0.0123
         },
         {
-          "score": "7-6 7-6 6-4",
-          "probability": 0.0057
+          "score": "4-6 6-7",
+          "probability": 0.0121
         }
       ],
       "total_games_probabilities": {
-        "over_18.5": 1.0,
-        "over_19.5": 1.0,
-        "over_20.5": 1.0,
-        "over_21.5": 1.0,
-        "over_22.5": 1.0,
-        "over_23.5": 0.9999,
-        "over_24.5": 0.9994,
-        "over_25.5": 0.9974,
-        "over_26.5": 0.995,
-        "over_27.5": 0.9876,
-        "over_28.5": 0.9771,
-        "over_29.5": 0.9597,
-        "over_30.5": 0.9358,
-        "over_31.5": 0.9101,
-        "over_32.5": 0.873,
-        "over_33.5": 0.8423,
-        "over_34.5": 0.8232,
-        "over_35.5": 0.7863,
-        "over_36.5": 0.7506,
-        "over_37.5": 0.7396,
-        "over_38.5": 0.718,
-        "over_39.5": 0.6863,
-        "over_40.5": 0.6601,
-        "over_41.5": 0.6255,
-        "over_42.5": 0.5905,
-        "over_43.5": 0.5579,
-        "over_44.5": 0.5198,
-        "over_45.5": 0.4688,
-        "over_46.5": 0.4364,
-        "over_47.5": 0.4103,
-        "over_48.5": 0.3685,
-        "over_49.5": 0.3342,
-        "over_50.5": 0.3115
+        "over_14.5": 0.9952,
+        "over_15.5": 0.9812,
+        "over_16.5": 0.9553,
+        "over_17.5": 0.9065,
+        "over_18.5": 0.8409,
+        "over_19.5": 0.7707,
+        "over_20.5": 0.7036,
+        "over_21.5": 0.6557,
+        "over_22.5": 0.5839,
+        "over_23.5": 0.5301,
+        "over_24.5": 0.5122,
+        "over_25.5": 0.4681,
+        "over_26.5": 0.4188,
+        "over_27.5": 0.373,
+        "over_28.5": 0.3265,
+        "over_29.5": 0.2681,
+        "over_30.5": 0.2143,
+        "over_31.5": 0.1587,
+        "over_32.5": 0.1111,
+        "over_33.5": 0.0774,
+        "over_34.5": 0.0522,
+        "over_35.5": 0.0248
       },
       "player1_stats": {
         "aces": {
-          "mean": 15.928,
-          "p10": 10.0,
+          "mean": 6.07,
+          "p10": 3.0,
+          "p50": 6.0,
+          "p90": 10.0
+        },
+        "double_faults": {
+          "mean": 3.45,
+          "p10": 1.0,
+          "p50": 3.0,
+          "p90": 6.0
+        },
+        "service_points": {
+          "mean": 82.139,
+          "p10": 54.0,
+          "p50": 80.0,
+          "p90": 112.0
+        },
+        "service_points_won": {
+          "mean": 49.38,
+          "p10": 32.0,
+          "p50": 49.0,
+          "p90": 68.0
+        },
+        "first_serves_in": {
+          "mean": 52.001,
+          "p10": 34.0,
+          "p50": 51.0,
+          "p90": 72.0
+        },
+        "first_serve_points_won": {
+          "mean": 33.475,
+          "p10": 21.0,
+          "p50": 33.0,
+          "p90": 47.0
+        },
+        "second_serve_points_won": {
+          "mean": 15.906,
+          "p10": 9.0,
           "p50": 16.0,
           "p90": 23.0
         },
-        "double_faults": {
-          "mean": 4.82,
-          "p10": 2.0,
-          "p50": 5.0,
-          "p90": 8.0
-        },
-        "service_points": {
-          "mean": 134.512,
-          "p10": 93.0,
-          "p50": 134.0,
-          "p90": 176.0
-        },
-        "service_points_won": {
-          "mean": 95.267,
-          "p10": 67.0,
-          "p50": 95.0,
-          "p90": 124.0
-        },
-        "first_serves_in": {
-          "mean": 92.138,
-          "p10": 63.9,
-          "p50": 92.0,
-          "p90": 121.0
-        },
-        "first_serve_points_won": {
-          "mean": 69.068,
-          "p10": 48.0,
-          "p50": 69.0,
-          "p90": 91.0
-        },
-        "second_serve_points_won": {
-          "mean": 26.198,
-          "p10": 17.0,
-          "p50": 26.0,
-          "p90": 36.0
-        },
         "service_games": {
-          "mean": 21.637,
-          "p10": 16.0,
-          "p50": 22.0,
-          "p90": 27.0
+          "mean": 12.247,
+          "p10": 9.0,
+          "p50": 12.0,
+          "p90": 16.0
         },
         "breaks": {
-          "mean": 2.453,
+          "mean": 3.057,
           "p10": 1.0,
-          "p50": 2.0,
-          "p90": 4.0
+          "p50": 3.0,
+          "p90": 5.0
         },
         "break_points_faced": {
-          "mean": 6.666,
-          "p10": 2.0,
-          "p50": 6.0,
-          "p90": 12.0
+          "mean": 8.027,
+          "p10": 3.0,
+          "p50": 8.0,
+          "p90": 13.0
         },
         "break_points_saved": {
-          "mean": 4.725,
+          "mean": 4.818,
           "p10": 1.0,
           "p50": 4.0,
           "p90": 9.0
@@ -672,104 +273,104 @@
       },
       "player2_stats": {
         "aces": {
-          "mean": 12.705,
-          "p10": 7.0,
-          "p50": 12.0,
-          "p90": 19.0
+          "mean": 7.011,
+          "p10": 3.0,
+          "p50": 7.0,
+          "p90": 11.0
         },
         "double_faults": {
-          "mean": 3.852,
+          "mean": 4.155,
           "p10": 1.0,
           "p50": 4.0,
           "p90": 7.0
         },
         "service_points": {
-          "mean": 137.255,
-          "p10": 95.0,
-          "p50": 137.0,
-          "p90": 180.0
+          "mean": 81.909,
+          "p10": 54.0,
+          "p50": 80.0,
+          "p90": 112.0
         },
         "service_points_won": {
-          "mean": 94.424,
-          "p10": 64.0,
-          "p50": 95.0,
-          "p90": 125.0
+          "mean": 49.728,
+          "p10": 33.0,
+          "p50": 49.0,
+          "p90": 68.0
         },
         "first_serves_in": {
-          "mean": 83.931,
-          "p10": 57.0,
-          "p50": 84.0,
-          "p90": 111.0
+          "mean": 47.797,
+          "p10": 31.0,
+          "p50": 47.0,
+          "p90": 66.0
         },
         "first_serve_points_won": {
-          "mean": 60.932,
-          "p10": 41.0,
-          "p50": 61.0,
-          "p90": 81.0
+          "mean": 31.637,
+          "p10": 20.0,
+          "p50": 31.0,
+          "p90": 44.0
         },
         "second_serve_points_won": {
-          "mean": 33.491,
-          "p10": 21.0,
-          "p50": 33.0,
-          "p90": 46.0
+          "mean": 18.091,
+          "p10": 11.0,
+          "p50": 18.0,
+          "p90": 26.0
         },
         "service_games": {
-          "mean": 21.551,
-          "p10": 15.0,
-          "p50": 22.0,
-          "p90": 27.0
+          "mean": 12.258,
+          "p10": 9.0,
+          "p50": 12.0,
+          "p90": 16.0
         },
         "breaks": {
-          "mean": 1.941,
-          "p10": 0.0,
-          "p50": 2.0,
-          "p90": 4.0
+          "mean": 3.209,
+          "p10": 1.0,
+          "p50": 3.0,
+          "p90": 5.0
         },
         "break_points_faced": {
-          "mean": 7.929,
+          "mean": 7.769,
           "p10": 3.0,
-          "p50": 8.0,
+          "p50": 7.0,
           "p90": 13.0
         },
         "break_points_saved": {
-          "mean": 5.475,
+          "mean": 4.712,
           "p10": 1.0,
-          "p50": 5.0,
-          "p90": 10.0
+          "p50": 4.0,
+          "p90": 9.0
         }
       }
     },
     "winner": {
-      "name": "Ben Shelton",
-      "probability": 0.6167
+      "name": "Elena Rybakina",
+      "probability": 0.5275
     },
     "kalshi": {
-      "event_ticker": "KXATPMATCH-26SEP11TIASHE",
-      "observed_at": "2026-09-11T17:27:35.825800+00:00",
+      "event_ticker": "KXWTAMATCH-26SEP12SABRYB",
+      "observed_at": "2026-09-12T15:35:13.047216+00:00",
       "market_status": [
         "active"
       ],
       "player1": {
-        "name": "Ben Shelton",
-        "ticker": "KXATPMATCH-26SEP11TIASHE-SHE",
-        "bid": 0.72,
-        "ask": 0.73,
-        "midpoint": 0.725,
-        "de_vig_probability": 0.725,
-        "volume": 227839.38,
+        "name": "Aryna Sabalenka",
+        "ticker": "KXWTAMATCH-26SEP12SABRYB-SAB",
+        "bid": 0.57,
+        "ask": 0.58,
+        "midpoint": 0.575,
+        "de_vig_probability": 0.575,
+        "volume": 400570.65,
         "status": "active"
       },
       "player2": {
-        "name": "Frances Tiafoe",
-        "ticker": "KXATPMATCH-26SEP11TIASHE-TIA",
-        "bid": 0.27,
-        "ask": 0.28,
-        "midpoint": 0.275,
-        "de_vig_probability": 0.275,
-        "volume": 406412.0,
+        "name": "Elena Rybakina",
+        "ticker": "KXWTAMATCH-26SEP12SABRYB-RYB",
+        "bid": 0.42,
+        "ask": 0.43,
+        "midpoint": 0.425,
+        "de_vig_probability": 0.42500000000000004,
+        "volume": 246709.16,
         "status": "active"
       },
-      "model_minus_market_p1": -0.1083,
+      "model_minus_market_p1": -0.1025,
       "note": "Public quote comparison only; not a trade recommendation."
     }
   }
