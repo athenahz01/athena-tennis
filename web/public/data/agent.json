@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "ts": "2026-09-13T15:14:45.566311+00:00",
+  "ts": "2026-09-14T13:59:23.949151+00:00",
   "mode": "paper settlement only",
   "session": {
     "started_at": "2026-09-01T23:31:31.366523+00:00",
@@ -2669,7 +2669,7 @@
     ]
   },
   "performance": {
-    "generated_at": "2026-09-13T15:14:45.566311+00:00",
+    "generated_at": "2026-09-14T13:59:23.949151+00:00",
     "positions": 9,
     "open_positions": 6,
     "settled_positions": 3,
